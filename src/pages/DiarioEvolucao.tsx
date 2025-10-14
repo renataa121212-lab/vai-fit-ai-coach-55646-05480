@@ -133,13 +133,14 @@ const DiarioEvolucao = () => {
 
         if (uploadError) throw uploadError;
 
-        // Save photo record
+        // Save photo record with current timestamp
         const { error: insertError } = await (supabase as any)
           .from('evolution_photos')
           .insert({
             user_id: user.id,
             image_path: fileName,
             caption: newEntry.notes,
+            taken_at: new Date().toISOString(),
           });
 
         if (insertError) throw insertError;
@@ -148,7 +149,7 @@ const DiarioEvolucao = () => {
 
       toast({
         title: "Entrada salva!",
-        description: `${uploadedPaths.length} foto(s) salva(s) com sucesso.`,
+        description: `Dados e ${uploadedPaths.length} foto(s) salva(s) com sucesso.`,
       });
 
       // Reset form
@@ -165,7 +166,8 @@ const DiarioEvolucao = () => {
       setPreviewUrls([]);
       setShowNewEntry(false);
       
-      loadEntries();
+      // Reload entries immediately to show new data
+      await loadEntries();
     } catch (error: any) {
       console.error('Error saving entry:', error);
       toast({

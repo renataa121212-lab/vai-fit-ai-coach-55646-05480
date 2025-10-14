@@ -14,7 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      body_scans: {
+        Row: {
+          arm_measurement: number | null
+          body_fat_percentage: number | null
+          calf_measurement: number | null
+          chest_measurement: number | null
+          created_at: string
+          height: number
+          hip_measurement: number | null
+          id: string
+          lean_mass: number | null
+          notes: string | null
+          user_id: string
+          video_url: string | null
+          waist_measurement: number | null
+          weight: number
+        }
+        Insert: {
+          arm_measurement?: number | null
+          body_fat_percentage?: number | null
+          calf_measurement?: number | null
+          chest_measurement?: number | null
+          created_at?: string
+          height: number
+          hip_measurement?: number | null
+          id?: string
+          lean_mass?: number | null
+          notes?: string | null
+          user_id: string
+          video_url?: string | null
+          waist_measurement?: number | null
+          weight: number
+        }
+        Update: {
+          arm_measurement?: number | null
+          body_fat_percentage?: number | null
+          calf_measurement?: number | null
+          chest_measurement?: number | null
+          created_at?: string
+          height?: number
+          hip_measurement?: number | null
+          id?: string
+          lean_mass?: number | null
+          notes?: string | null
+          user_id?: string
+          video_url?: string | null
+          waist_measurement?: number | null
+          weight?: number
+        }
+        Relationships: []
+      }
+      evolution_photos: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          image_path: string
+          taken_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_path: string
+          taken_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_path?: string
+          taken_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          fitness_goal: string | null
+          full_name: string | null
+          height: number | null
+          id: string
+          updated_at: string
+          weight: number | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          fitness_goal?: string | null
+          full_name?: string | null
+          height?: number | null
+          id: string
+          updated_at?: string
+          weight?: number | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          fitness_goal?: string | null
+          full_name?: string | null
+          height?: number | null
+          id?: string
+          updated_at?: string
+          weight?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

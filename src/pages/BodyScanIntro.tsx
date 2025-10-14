@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Scan, ArrowRight } from 'lucide-react';
 import AppNav from '@/components/AppNav';
-import bodyScanIntro from '@/assets/body-scan-intro-new.jpg';
+import bodyScanIntro from '@/assets/body-scan-intro-improved.jpg';
 
 export default function BodyScanIntro() {
   const navigate = useNavigate();

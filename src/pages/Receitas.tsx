@@ -17,10 +17,9 @@ import type { CategoriaRefeicao, MetaNutricional, MetodoPreparo, IngredienteDisp
 import bebidasDigestao from '@/assets/bebidas-digestao.jpg';
 import treinoJejum from '@/assets/treino-jejum.jpg';
 import vontadeDoce from '@/assets/vontade-doce.jpg';
-import inchaçoDuvida from '@/assets/inchaço-duvida.jpg';
 import alimentosNoite from '@/assets/alimentos-noite.jpg';
 import focoFimDeSemana from '@/assets/foco-fim-de-semana.jpg';
-import fomeNoite from '@/assets/fome-noite.jpg';
+import fomeNoite from '@/assets/fome-noite-improved.jpg';
 import horarioRefeicao from '@/assets/horario-refeicao.jpg';
 
 const categoriasLabels: Record<CategoriaRefeicao, string> = {
@@ -78,7 +77,6 @@ export default function Receitas() {
   const [metodosSelecionados, setMetodosSelecionados] = useState<MetodoPreparo[]>([]);
   const [ingredientesSelecionados, setIngredientesSelecionados] = useState<IngredienteDisponivel[]>([]);
   const [caloriaMax, setCaloriaMax] = useState(600);
-  const [apenasRavoritos, setApenasRavoritos] = useState(false);
   const [favoritos, setFavoritos] = useState<Set<string>>(
     new Set(JSON.parse(localStorage.getItem('receitasFavoritas') || '[]'))
   );
@@ -132,11 +130,6 @@ export default function Receitas() {
       return false;
     }
 
-    // Filtro de favoritos
-    if (apenasRavoritos && !favoritos.has(receita.id)) {
-      return false;
-    }
-
     return true;
   });
 
@@ -147,7 +140,6 @@ export default function Receitas() {
     setMetodosSelecionados([]);
     setIngredientesSelecionados([]);
     setCaloriaMax(600);
-    setApenasRavoritos(false);
   };
 
   return (
@@ -226,27 +218,7 @@ export default function Receitas() {
               </div>
             </Card>
 
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Por que estou inchado(a) mesmo comendo bem? Quais são as principais causas da retenção de líquidos e inchaço?')}
-            >
-              <div className="relative h-40 overflow-hidden">
-                <img 
-                  src={inchaçoDuvida} 
-                  alt="Inchaço e retenção" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Por que estou inchado(a) mesmo comendo bem?
-                  </h3>
-                  <p className="text-xs text-white/80">Entenda as causas</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card 
+            <Card
               className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
               onClick={() => setLiviaTrigger('Por que sinto fome mesmo depois de comer? Como posso controlar melhor a saciedade?')}
             >
@@ -327,30 +299,44 @@ export default function Receitas() {
             </Card>
           </div>
 
-          {/* Busca e Filtros */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                placeholder="Buscar receitas..."
-                value={busca}
-                onChange={(e) => setBusca(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+          {/* Tabs Principais: Todas receitas e Favoritos */}
+          <Tabs defaultValue="todas" className="space-y-6">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="todas">Todas as Receitas</TabsTrigger>
+              <TabsTrigger value="favoritos" className="gap-2">
+                <Heart className="h-4 w-4" />
+                Favoritos
+                {favoritos.size > 0 && (
+                  <Badge variant="secondary" className="ml-1">{favoritos.size}</Badge>
+                )}
+              </TabsTrigger>
+            </TabsList>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  <Filter className="h-4 w-4" />
-                  Filtros
-                  {(metasSelecionadas.length + metodosSelecionados.length + ingredientesSelecionados.length > 0 || apenasRavoritos) && (
-                    <Badge variant="secondary" className="ml-1">
-                      {metasSelecionadas.length + metodosSelecionados.length + ingredientesSelecionados.length + (apenasRavoritos ? 1 : 0)}
-                    </Badge>
-                  )}
-                </Button>
-              </SheetTrigger>
+            <TabsContent value="todas" className="space-y-6">
+              {/* Busca e Filtros */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input
+                    placeholder="Buscar receitas..."
+                    value={busca}
+                    onChange={(e) => setBusca(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" className="gap-2">
+                      <Filter className="h-4 w-4" />
+                      Filtros
+                      {(metasSelecionadas.length + metodosSelecionados.length + ingredientesSelecionados.length > 0) && (
+                        <Badge variant="secondary" className="ml-1">
+                          {metasSelecionadas.length + metodosSelecionados.length + ingredientesSelecionados.length}
+                        </Badge>
+                      )}
+                    </Button>
+                  </SheetTrigger>
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>Filtros</SheetTitle>
@@ -370,17 +356,6 @@ export default function Receitas() {
                     />
                   </div>
 
-                  {/* Apenas Favoritos */}
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="favoritos"
-                      checked={apenasRavoritos}
-                      onCheckedChange={(checked) => setApenasRavoritos(checked as boolean)}
-                    />
-                    <Label htmlFor="favoritos" className="cursor-pointer">
-                      Apenas favoritos
-                    </Label>
-                  </div>
 
                   {/* Metas Nutricionais */}
                   <div className="space-y-3">
@@ -521,6 +496,83 @@ export default function Receitas() {
                         >
                           <Heart 
                             className={`h-5 w-5 ${favoritos.has(receita.id) ? 'fill-rose text-rose' : 'text-muted-foreground'}`}
+                          />
+                        </button>
+                      </div>
+
+                      <CardContent className="p-4 space-y-3">
+                        <h3 className="font-semibold text-lg text-petroleum line-clamp-1">
+                          {receita.nome}
+                        </h3>
+
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{receita.tempoPreparo} min</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Flame className="h-4 w-4" />
+                            <span>{receita.calorias} kcal</span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                          {receita.metasNutricionais.slice(0, 2).map((meta) => (
+                            <Badge key={meta} variant="secondary" className="text-xs">
+                              {metasLabels[meta]}
+                            </Badge>
+                          ))}
+                        </div>
+
+                        <p className="text-sm text-muted-foreground italic">
+                          💜 {receita.dicaLivia}
+                        </p>
+                      </CardContent>
+                    </Card>
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
+            </TabsContent>
+
+            {/* Tab de Favoritos */}
+            <TabsContent value="favoritos" className="space-y-6">
+              {favoritos.size === 0 ? (
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <Heart className="h-16 w-16 text-muted-foreground/20 mb-4" />
+                    <p className="text-muted-foreground text-center mb-2">
+                      Você ainda não tem receitas favoritas
+                    </p>
+                    <p className="text-sm text-muted-foreground text-center">
+                      Clique no ícone de coração nas receitas para salvá-las aqui
+                    </p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {receitas.filter(r => favoritos.has(r.id)).map((receita) => (
+                    <Card 
+                      key={receita.id}
+                      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
+                      onClick={() => navigate(`/receitas/${receita.id}`)}
+                    >
+                      <div className="relative aspect-video overflow-hidden">
+                        <img 
+                          src={receita.imagem} 
+                          alt={receita.nome}
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform"
+                        />
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavorito(receita.id);
+                          }}
+                          className="absolute top-3 right-3 p-2 rounded-full bg-white/90 hover:bg-white transition-colors"
+                        >
+                          <Heart 
+                            className="h-5 w-5 fill-rose text-rose"
                           />
                         </button>
                       </div>

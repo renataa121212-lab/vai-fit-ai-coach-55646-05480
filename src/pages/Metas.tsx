@@ -81,7 +81,8 @@ const Metas = () => {
         completed: false,
         createdAt: new Date().toISOString().split('T')[0]
       };
-      setMetas([...metas, goal]);
+      // Add new goal at the beginning (most recent first)
+      setMetas([goal, ...metas]);
       setNewGoal({
         title: '',
         description: '',

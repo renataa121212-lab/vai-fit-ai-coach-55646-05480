@@ -11,6 +11,8 @@ import { ArrowLeft, User, Bell, Globe, Palette, CreditCard, LogOut, Smartphone }
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import AppNav from '@/components/AppNav';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +27,8 @@ import {
 const Configuracoes = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { theme, setTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   
   // Configurações de perfil
@@ -36,10 +40,6 @@ const Configuracoes = () => {
   const [pushNotifications, setPushNotifications] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  
-  // Configurações de aparência
-  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('auto');
-  const [language, setLanguage] = useState('pt');
 
   const handleSaveProfile = () => {
     toast.success('Perfil atualizado com sucesso!');
