@@ -1,0 +1,48 @@
+{
+  "name": "VaiFit - Transforme-se e vença seus limites",
+  "short_name": "VaiFit",
+  "description": "App de saúde com IA: jejum intermitente, treinos personalizados e reconhecimento de alimentos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#00CBA9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["health", "fitness", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Jejum Intermitente",
+      "short_name": "Jejum",
+      "description": "Iniciar cronômetro de jejum",
+      "url": "/jejum",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Treinos",
+      "short_name": "Treinos",
+      "description": "Ver treinos do dia",
+      "url": "/treinos",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

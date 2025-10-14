@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 200 50% 25%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 200 50% 25%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 50% 25%;
+
+    --primary: 160 50% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 270 50% 70%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 200 10% 90%;
+    --muted-foreground: 200 20% 50%;
+
+    --accent: 10 80% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 15% 85%;
+    --input: 200 15% 90%;
+    --ring: 160 50% 50%;
+
+    --radius: 1rem;
+
+    /* VaiFit Brand Colors */
+    --mint: 160 50% 50%;
+    --mint-light: 160 45% 65%;
+    --mint-dark: 160 55% 35%;
+    
+    --lavender: 270 50% 70%;
+    --lavender-light: 270 45% 80%;
+    --lavender-dark: 270 55% 55%;
+    
+    --coral: 10 80% 60%;
+    --coral-light: 10 75% 70%;
+    --coral-dark: 10 85% 50%;
+    
+    --petroleum: 200 50% 25%;
+    --petroleum-light: 200 45% 35%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--mint)) 0%, hsl(var(--lavender)) 50%, hsl(var(--coral)) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(var(--mint-light) / 0.1) 0%, hsl(var(--lavender-light) / 0.1) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(var(--mint) / 0.1);
+    --shadow-md: 0 4px 16px hsl(var(--mint) / 0.15);
+    --shadow-lg: 0 8px 32px hsl(var(--mint) / 0.2);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
