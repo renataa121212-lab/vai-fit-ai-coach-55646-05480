@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Target, Trophy, Calendar, CheckCircle, Star } from 'lucide-react';
 import AppNav from '@/components/AppNav';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'sonner';
+import { useTranslation } from '@/lib/i18n';
 
 const Metas = () => {
   const [showNewGoal, setShowNewGoal] = useState(false);
@@ -71,28 +75,44 @@ const Metas = () => {
     "Pequenos passos, grandes resultados! 🎯"
   ];
 
-  const handleCreateGoal = () => {
-    if (newGoal.title && newGoal.targetValue) {
-      const goal = {
-        id: Date.now(),
-        ...newGoal,
-        targetValue: Number(newGoal.targetValue),
-        currentValue: Number(newGoal.currentValue) || 0,
-        completed: false,
-        createdAt: new Date().toISOString().split('T')[0]
-      };
-      // Add new goal at the beginning (most recent first)
-      setMetas([goal, ...metas]);
-      setNewGoal({
-        title: '',
-        description: '',
-        targetValue: '',
-        currentValue: '',
-        deadline: '',
-        type: 'weight'
-      });
-      setShowNewGoal(false);
+  const handleCreateGoal = async () => {
+    if (!newGoal.title || !newGoal.targetValue || !user) {
+      toast.error('Preencha todos os campos obrigatórios');
+      return;
     }
+
+    const { data, error } = await supabase
+      .from('goals')
+      .insert({
+        user_id: user.id,
+        title: newGoal.title,
+        description: newGoal.description,
+        target_value: Number(newGoal.targetValue),
+        current_value: Number(newGoal.currentValue) || 0,
+        deadline: newGoal.deadline || null,
+        goal_type: newGoal.type,
+        completed: false,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error creating goal:', error);
+      toast.error('Erro ao criar meta');
+      return;
+    }
+
+    toast.success('Meta criada com sucesso!');
+    setNewGoal({
+      title: '',
+      description: '',
+      targetValue: '',
+      currentValue: '',
+      deadline: '',
+      type: 'weight'
+    });
+    setShowNewGoal(false);
+    loadGoals();
   };
 
   const getProgressPercentage = (current: number, target: number, type: string) => {
@@ -131,15 +151,15 @@ const Metas = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-petroleum">Suas Metas</h1>
-            <p className="text-petroleum-light">Defina e acompanhe seus objetivos</p>
+            <h1 className="text-3xl font-bold text-petroleum">{t('goalsTitle')}</h1>
+            <p className="text-petroleum-light">{t('goalsSubtitle')}</p>
           </div>
           <Button
             onClick={() => setShowNewGoal(true)}
             className="bg-mint hover:bg-mint-dark text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Nova Meta
+            {t('newGoal')}
           </Button>
         </div>
 
@@ -159,74 +179,84 @@ const Metas = () => {
           {/* Metas Ativas */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h2 className="text-xl font-semibold text-petroleum mb-4">Metas Ativas</h2>
-              <div className="space-y-4">
-                {metas.filter(meta => !meta.completed).map((meta) => (
-                  <Card key={meta.id} className="bg-gradient-card border-mint/20">
-                    <CardContent className="pt-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="text-2xl">{getTypeIcon(meta.type)}</div>
-                          <div>
-                            <h3 className="font-semibold text-petroleum">{meta.title}</h3>
-                            <p className="text-sm text-petroleum-light">{meta.description}</p>
+              <h2 className="text-xl font-semibold text-petroleum mb-4">{t('activeGoals')}</h2>
+              {loading ? (
+                <p className="text-petroleum-light">Carregando...</p>
+              ) : metas.filter(meta => !meta.completed).length === 0 ? (
+                <p className="text-petroleum-light">Nenhuma meta ativa ainda.</p>
+              ) : (
+                <div className="space-y-4">
+                  {metas.filter(meta => !meta.completed).map((meta) => (
+                    <Card key={meta.id} className="bg-gradient-card border-mint/20">
+                      <CardContent className="pt-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="text-2xl">{getTypeIcon(meta.goal_type)}</div>
+                            <div>
+                              <h3 className="font-semibold text-petroleum">{meta.title}</h3>
+                              <p className="text-sm text-petroleum-light">{meta.description}</p>
+                            </div>
+                          </div>
+                          <Badge className={`bg-${getTypeColor(meta.goal_type)} text-white`}>
+                            {meta.goal_type}
+                          </Badge>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-petroleum-light">Progresso:</span>
+                            <span className="font-medium text-petroleum">
+                              {meta.current_value}/{meta.target_value}
+                              {meta.goal_type === 'weight' ? 'kg' : meta.goal_type === 'workout' ? ' treinos' : ' dias'}
+                            </span>
+                          </div>
+                          
+                          <Progress 
+                            value={getProgressPercentage(meta.current_value, meta.target_value, meta.goal_type)} 
+                            className="w-full" 
+                          />
+                          
+                          <div className="flex justify-between items-center text-xs">
+                            <span className="text-petroleum-light">
+                              {meta.deadline && `Prazo: ${new Date(meta.deadline).toLocaleDateString('pt-BR')}`}
+                            </span>
+                            <span className="font-medium text-coral">
+                              {Math.round(getProgressPercentage(meta.current_value, meta.target_value, meta.goal_type))}% completo
+                            </span>
                           </div>
                         </div>
-                        <Badge className={`bg-${getTypeColor(meta.type)} text-white`}>
-                          {meta.type}
-                        </Badge>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-petroleum-light">Progresso:</span>
-                          <span className="font-medium text-petroleum">
-                            {meta.currentValue}/{meta.targetValue}
-                            {meta.type === 'weight' ? 'kg' : meta.type === 'workout' ? ' treinos' : ' dias'}
-                          </span>
-                        </div>
-                        
-                        <Progress 
-                          value={getProgressPercentage(meta.currentValue, meta.targetValue, meta.type)} 
-                          className="w-full" 
-                        />
-                        
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-petroleum-light">
-                            Prazo: {new Date(meta.deadline).toLocaleDateString('pt-BR')}
-                          </span>
-                          <span className="font-medium text-coral">
-                            {Math.round(getProgressPercentage(meta.currentValue, meta.targetValue, meta.type))}% completo
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Metas Concluídas */}
             <div>
-              <h2 className="text-xl font-semibold text-petroleum mb-4">Metas Concluídas 🎉</h2>
-              <div className="space-y-4">
-                {metas.filter(meta => meta.completed).map((meta) => (
-                  <Card key={meta.id} className="bg-gradient-card border-coral/20 opacity-80">
-                    <CardContent className="pt-6">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <CheckCircle className="h-6 w-6 text-coral" />
-                          <div>
-                            <h3 className="font-semibold text-petroleum">{meta.title}</h3>
-                            <p className="text-sm text-petroleum-light">{meta.description}</p>
+              <h2 className="text-xl font-semibold text-petroleum mb-4">{t('completedGoals')} 🎉</h2>
+              {metas.filter(meta => meta.completed).length === 0 ? (
+                <p className="text-petroleum-light">Nenhuma meta concluída ainda.</p>
+              ) : (
+                <div className="space-y-4">
+                  {metas.filter(meta => meta.completed).map((meta) => (
+                    <Card key={meta.id} className="bg-gradient-card border-coral/20 opacity-80">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <CheckCircle className="h-6 w-6 text-coral" />
+                            <div>
+                              <h3 className="font-semibold text-petroleum">{meta.title}</h3>
+                              <p className="text-sm text-petroleum-light">{meta.description}</p>
+                            </div>
                           </div>
+                          <Badge className="bg-coral text-white">Concluída</Badge>
                         </div>
-                        <Badge className="bg-coral text-white">Concluída</Badge>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -263,15 +293,17 @@ const Metas = () => {
               <CardContent>
                 <div className="space-y-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-coral">3</div>
+                    <div className="text-2xl font-bold text-coral">{metas.length}</div>
                     <div className="text-xs text-petroleum-light">Metas criadas</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-mint">1</div>
+                    <div className="text-2xl font-bold text-mint">{metas.filter(m => m.completed).length}</div>
                     <div className="text-xs text-petroleum-light">Metas concluídas</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-lavender">67%</div>
+                    <div className="text-2xl font-bold text-lavender">
+                      {metas.length > 0 ? Math.round((metas.filter(m => m.completed).length / metas.length) * 100) : 0}%
+                    </div>
                     <div className="text-xs text-petroleum-light">Taxa de sucesso</div>
                   </div>
                 </div>
@@ -352,8 +384,9 @@ const Metas = () => {
                   <Button
                     onClick={handleCreateGoal}
                     className="flex-1 bg-mint hover:bg-mint-dark text-white"
+                    disabled={loading}
                   >
-                    Salvar Meta
+                    {t('save')}
                   </Button>
                 </div>
               </CardContent>

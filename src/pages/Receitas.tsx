@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AppNav from '@/components/AppNav';
+import { useTranslation } from '@/lib/i18n';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -71,6 +72,7 @@ const ingredientesLabels: Record<IngredienteDisponivel, string> = {
 
 export default function Receitas() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [busca, setBusca] = useState('');
   const [categoriaAtiva, setCategoriaAtiva] = useState<CategoriaRefeicao | 'todas'>('todas');
   const [metasSelecionadas, setMetasSelecionadas] = useState<MetaNutricional[]>([]);
@@ -150,9 +152,9 @@ export default function Receitas() {
         <div className="max-w-7xl mx-auto space-y-6">
           {/* Header */}
           <div className="space-y-2">
-            <h1 className="text-4xl font-bold text-petroleum">Receitas Saudáveis</h1>
+            <h1 className="text-4xl font-bold text-petroleum">{t('recipesTitle')}</h1>
             <p className="text-muted-foreground">
-              Descubra receitas deliciosas e nutritivas para cada momento do seu dia
+              {t('recipesSubtitle')}
             </p>
           </div>
 
@@ -302,10 +304,10 @@ export default function Receitas() {
           {/* Tabs Principais: Todas receitas e Favoritos */}
           <Tabs defaultValue="todas" className="space-y-6">
             <TabsList className="grid w-full max-w-md grid-cols-2">
-              <TabsTrigger value="todas">Todas as Receitas</TabsTrigger>
+              <TabsTrigger value="todas">{t('allRecipes')}</TabsTrigger>
               <TabsTrigger value="favoritos" className="gap-2">
                 <Heart className="h-4 w-4" />
-                Favoritos
+                {t('favorites')}
                 {favoritos.size > 0 && (
                   <Badge variant="secondary" className="ml-1">{favoritos.size}</Badge>
                 )}
@@ -318,7 +320,7 @@ export default function Receitas() {
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <Input
-                    placeholder="Buscar receitas..."
+                    placeholder={t('search')}
                     value={busca}
                     onChange={(e) => setBusca(e.target.value)}
                     className="pl-10"
@@ -329,7 +331,7 @@ export default function Receitas() {
                   <SheetTrigger asChild>
                     <Button variant="outline" className="gap-2">
                       <Filter className="h-4 w-4" />
-                      Filtros
+                      {t('filters')}
                       {(metasSelecionadas.length + metodosSelecionados.length + ingredientesSelecionados.length > 0) && (
                         <Badge variant="secondary" className="ml-1">
                           {metasSelecionadas.length + metodosSelecionados.length + ingredientesSelecionados.length}
