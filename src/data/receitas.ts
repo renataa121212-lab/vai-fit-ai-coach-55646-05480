@@ -8,6 +8,12 @@ import { receitasJantar } from './receitas-jantar';
 import { receitasLanches } from './receitas-lanches';
 import { receitasSopas } from './receitas-sopas';
 import { receitasSaladas } from './receitas-saladas';
+import { receitasSmoothies } from './receitas-smoothies';
+import { receitasMassas } from './receitas-massas';
+import { receitasPeixes } from './receitas-peixes';
+import { receitasVegetarianas } from './receitas-vegetarianas';
+import { receitasLowCarb } from './receitas-lowcarb';
+import { receitasFitnessExtras } from './receitas-fitness-extras';
 
 // Banco de dados base de receitas
 const receitasBase: Receita[] = [
@@ -2111,5 +2117,11 @@ export const receitas: Receita[] = [
   ...receitasJantar,
   ...receitasLanches,
   ...receitasSopas,
-  ...receitasSaladas
+  ...receitasSaladas,
+  ...receitasSmoothies,
+  ...receitasMassas,
+  ...receitasPeixes,
+  ...receitasVegetarianas,
+  ...receitasLowCarb,
+  ...receitasFitnessExtras
 ];

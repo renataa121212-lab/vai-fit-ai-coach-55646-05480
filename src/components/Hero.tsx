@@ -26,8 +26,8 @@ const Hero = () => {
               </h1>
               
               <p className="text-xl text-muted-foreground max-w-xl">
-                Jejum intermitente inteligente, treinos personalizados e reconhecimento 
-                de alimentos por IA. Sua jornada de transformação começa aqui.
+                Jejum intermitente inteligente, mais de 400 receitas fitness, 
+                escaneamento corporal por IA e Lívia, sua assistente de nutrição 24/7.
               </p>
             </div>
             
