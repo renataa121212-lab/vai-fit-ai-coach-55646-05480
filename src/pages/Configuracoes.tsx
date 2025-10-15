@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,8 +11,6 @@ import { ArrowLeft, User, Bell, Globe, Palette, CreditCard, LogOut, Smartphone }
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import AppNav from '@/components/AppNav';
-import { useTheme } from '@/contexts/ThemeContext';
-import { useLanguage } from '@/contexts/LanguageContext';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,9 +25,46 @@ import {
 const Configuracoes = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { theme, setTheme } = useTheme();
-  const { language, setLanguage } = useLanguage();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  
+  // Tema e Idioma
+  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>(() => {
+    const saved = localStorage.getItem('theme');
+    return (saved as 'light' | 'dark' | 'auto') || 'auto';
+  });
+  
+  const [language, setLanguage] = useState<'pt' | 'en' | 'es' | 'fr' | 'de' | 'it' | 'pl' | 'cs'>(() => {
+    const saved = localStorage.getItem('language');
+    return (saved as any) || 'pt';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    
+    const applyTheme = () => {
+      const root = document.documentElement;
+      
+      if (theme === 'auto') {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.classList.toggle('dark', prefersDark);
+      } else {
+        root.classList.toggle('dark', theme === 'dark');
+      }
+    };
+
+    applyTheme();
+
+    if (theme === 'auto') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handler = () => applyTheme();
+      mediaQuery.addEventListener('change', handler);
+      return () => mediaQuery.removeEventListener('change', handler);
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
   
   // Configurações de perfil
   const [nome, setNome] = useState(user?.user_metadata?.full_name || '');
@@ -282,7 +317,7 @@ const Configuracoes = () => {
                 <CardTitle>Selecione o idioma</CardTitle>
               </CardHeader>
               <CardContent>
-                <Select value={language} onValueChange={setLanguage}>
+                <Select value={language} onValueChange={(val) => setLanguage(val as any)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
