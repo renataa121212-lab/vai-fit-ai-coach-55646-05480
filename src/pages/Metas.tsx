@@ -14,7 +14,10 @@ import { toast } from 'sonner';
 import { useTranslation } from '@/lib/i18n';
 
 const Metas = () => {
+  const { user } = useAuth();
+  const { t } = useTranslation();
   const [showNewGoal, setShowNewGoal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newGoal, setNewGoal] = useState({
     title: '',
     description: '',
@@ -24,41 +27,35 @@ const Metas = () => {
     type: 'weight'
   });
 
-  const [metas, setMetas] = useState([
-    {
-      id: 1,
-      title: "Perder 5kg",
-      description: "Meta de emagrecimento saudável",
-      targetValue: 70,
-      currentValue: 75,
-      deadline: "2024-12-31",
-      type: "weight",
-      completed: false,
-      createdAt: "2024-01-15"
-    },
-    {
-      id: 2,
-      title: "30 treinos no mês",
-      description: "Consistência nos exercícios",
-      targetValue: 30,
-      currentValue: 22,
-      deadline: "2024-10-31",
-      type: "workout",
-      completed: false,
-      createdAt: "2024-10-01"
-    },
-    {
-      id: 3,
-      title: "Jejum 16:8 por 21 dias",
-      description: "Implementar jejum intermitente",
-      targetValue: 21,
-      currentValue: 21,
-      deadline: "2024-09-30",
-      type: "fasting",
-      completed: true,
-      createdAt: "2024-09-01"
+  const [metas, setMetas] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      loadGoals();
     }
-  ]);
+  }, [user]);
+
+  const loadGoals = async () => {
+    if (!user) return;
+    
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('goals')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      setMetas(data || []);
+    } catch (error) {
+      console.error('Error loading goals:', error);
+      toast.error('Erro ao carregar metas');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const achievements = [
     { id: 1, title: "Primeira Semana", icon: "🎯", description: "Completou 7 dias consecutivos" },
@@ -81,6 +78,7 @@ const Metas = () => {
       return;
     }
 
+    setLoading(true);
     const { data, error } = await supabase
       .from('goals')
       .insert({
@@ -99,6 +97,7 @@ const Metas = () => {
     if (error) {
       console.error('Error creating goal:', error);
       toast.error('Erro ao criar meta');
+      setLoading(false);
       return;
     }
 
@@ -112,6 +111,7 @@ const Metas = () => {
       type: 'weight'
     });
     setShowNewGoal(false);
+    setLoading(false);
     loadGoals();
   };
 
