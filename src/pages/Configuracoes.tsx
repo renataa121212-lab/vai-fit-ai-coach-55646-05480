@@ -11,6 +11,7 @@ import { ArrowLeft, User, Bell, Globe, Palette, CreditCard, LogOut, Smartphone }
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import AppNav from '@/components/AppNav';
+import { useTranslation } from '@/lib/i18n';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,17 +26,13 @@ import {
 const Configuracoes = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { language, changeLanguage } = useTranslation();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   
-  // Tema e Idioma
+  // Tema
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>(() => {
     const saved = localStorage.getItem('theme');
     return (saved as 'light' | 'dark' | 'auto') || 'auto';
-  });
-  
-  const [language, setLanguage] = useState<'pt' | 'en' | 'es' | 'fr' | 'de' | 'it' | 'pl' | 'cs'>(() => {
-    const saved = localStorage.getItem('language');
-    return (saved as any) || 'pt';
   });
 
   useEffect(() => {
@@ -62,9 +59,6 @@ const Configuracoes = () => {
     }
   }, [theme]);
 
-  useEffect(() => {
-    localStorage.setItem('language', language);
-  }, [language]);
   
   // Configurações de perfil
   const [nome, setNome] = useState(user?.user_metadata?.full_name || '');
@@ -317,7 +311,7 @@ const Configuracoes = () => {
                 <CardTitle>Selecione o idioma</CardTitle>
               </CardHeader>
               <CardContent>
-                <Select value={language} onValueChange={(val) => setLanguage(val as any)}>
+                <Select value={language} onValueChange={(val) => changeLanguage(val as any)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

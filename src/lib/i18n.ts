@@ -267,12 +267,28 @@ export const translations = {
   },
 };
 
+import { useState, useEffect } from 'react';
+
 export const useTranslation = () => {
-  const language = (localStorage.getItem('language') as Language) || 'pt';
+  const [language, setLanguage] = useState<Language>(() => {
+    return (localStorage.getItem('language') as Language) || 'pt';
+  });
+  
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language') as Language;
+    if (savedLanguage && savedLanguage !== language) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
   
   const t = (key: keyof typeof translations.pt): string => {
     return translations[language][key] || translations.pt[key] || key;
   };
   
-  return { t, language };
+  const changeLanguage = (newLanguage: Language) => {
+    localStorage.setItem('language', newLanguage);
+    setLanguage(newLanguage);
+  };
+  
+  return { t, language, changeLanguage };
 };
