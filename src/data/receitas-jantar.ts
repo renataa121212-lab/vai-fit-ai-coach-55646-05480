@@ -4,7 +4,7 @@ export const receitasJantar: Receita[] = [
   {
     id: 'jantar-extra-1',
     nome: 'Salmão ao Molho de Laranja',
-    imagem: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500',
+    imagem: '/src/assets/recipes/salmao-grelhado.jpg',
     categoria: 'jantar',
     tempoPreparo: 25,
     calorias: 420,

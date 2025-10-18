@@ -4,7 +4,7 @@ export const receitasCafeDaManha: Receita[] = [
   {
     id: 'cafe-extra-1',
     nome: 'Bowl de Açaí Proteico',
-    imagem: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?w=500',
+    imagem: '/src/assets/recipes/bowl-acai.jpg',
     categoria: 'cafe-da-manha',
     tempoPreparo: 10,
     calorias: 380,

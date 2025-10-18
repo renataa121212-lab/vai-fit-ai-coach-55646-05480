@@ -10,10 +10,14 @@ export const receitasLowCarb: Receita[] = Array.from({ length: 50 }, (_, i) => {
   ];
   
   const base = lowcarb[i % lowcarb.length];
+  const imagens = {
+    'Frango com Cream Cheese': '/src/assets/recipes/frango-cream-cheese.jpg',
+  };
+  
   return {
     id: `lowcarb-${i + 1}`,
     nome: `${base.nome} ${i > 4 ? `V${Math.floor(i / 5) + 1}` : ''}`,
-    imagem: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500',
+    imagem: imagens[base.nome] || '/src/assets/recipes/frango-cream-cheese.jpg',
     categoria: 'almoco',
     tempoPreparo: 20 + (i % 15),
     calorias: base.calorias,

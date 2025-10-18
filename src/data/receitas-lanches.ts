@@ -4,7 +4,7 @@ export const receitasLanches: Receita[] = [
   {
     id: 'lanche-extra-1',
     nome: 'Pasta de Atum com Cenoura',
-    imagem: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=500',
+    imagem: '/src/assets/recipes/iogurte-grego-frutas.jpg',
     categoria: 'lanche',
     tempoPreparo: 10,
     calorias: 180,

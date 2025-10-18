@@ -10,10 +10,14 @@ export const receitasSmoothies: Receita[] = Array.from({ length: 50 }, (_, i) =>
   ];
   
   const base = smoothies[i % smoothies.length];
+  const imagens = {
+    'Smoothie de Frutas Vermelhas': '/src/assets/recipes/smoothie-frutas-vermelhas.jpg',
+  };
+  
   return {
     id: `smoothie-${i + 1}`,
     nome: `${base.nome} ${i > 4 ? `V${Math.floor(i / 5) + 1}` : ''}`,
-    imagem: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=500',
+    imagem: imagens[base.nome] || '/src/assets/recipes/smoothie-frutas-vermelhas.jpg',
     categoria: 'lanche',
     tempoPreparo: 5,
     calorias: base.calorias + (i * 2),

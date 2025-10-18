@@ -10,10 +10,14 @@ export const receitasPeixes: Receita[] = Array.from({ length: 50 }, (_, i) => {
   ];
   
   const base = peixes[i % peixes.length];
+  const imagens = {
+    'Salmão Grelhado com Legumes': '/src/assets/recipes/salmao-grelhado.jpg',
+  };
+  
   return {
     id: `peixe-${i + 1}`,
     nome: `${base.nome} ${i > 4 ? `V${Math.floor(i / 5) + 1}` : ''}`,
-    imagem: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500',
+    imagem: imagens[base.nome] || '/src/assets/recipes/salmao-grelhado.jpg',
     categoria: 'almoco',
     tempoPreparo: 20 + (i % 15),
     calorias: base.calorias,

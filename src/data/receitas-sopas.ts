@@ -4,7 +4,7 @@ export const receitasSopas: Receita[] = [
   {
     id: 'sopa-extra-1',
     nome: 'Canja de Galinha Light',
-    imagem: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500',
+    imagem: '/src/assets/recipes/sopa-frango.jpg',
     categoria: 'sopa',
     tempoPreparo: 40,
     calorias: 250,

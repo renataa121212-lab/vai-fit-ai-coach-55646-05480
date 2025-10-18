@@ -5,7 +5,7 @@ export const receitasDocesSaudaveis: Receita[] = [
   {
     id: 'doce-1',
     nome: 'Brownie de Batata-Doce',
-    imagem: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500',
+    imagem: '/src/assets/recipes/mousse-chocolate.jpg',
     categoria: 'doce-saudavel',
     tempoPreparo: 35,
     calorias: 180,

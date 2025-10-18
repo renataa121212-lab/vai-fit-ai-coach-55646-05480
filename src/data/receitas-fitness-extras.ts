@@ -10,10 +10,15 @@ export const receitasFitnessExtras: Receita[] = Array.from({ length: 50 }, (_, i
   ];
   
   const base = extras[i % extras.length];
+  const imagens = {
+    'Bowl de Açaí Fitness': '/src/assets/recipes/bowl-acai.jpg',
+    'Panqueca Proteica': '/src/assets/recipes/panqueca-proteica.jpg',
+  };
+  
   return {
     id: `fitness-extra-${i + 1}`,
     nome: `${base.nome} ${i > 4 ? `V${Math.floor(i / 5) + 1}` : ''}`,
-    imagem: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=500',
+    imagem: imagens[base.nome] || 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=500',
     categoria: 'lanche',
     tempoPreparo: 15 + (i % 10),
     calorias: base.calorias,

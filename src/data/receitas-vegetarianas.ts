@@ -10,10 +10,14 @@ export const receitasVegetarianas: Receita[] = Array.from({ length: 50 }, (_, i)
   ];
   
   const base = vegetarianas[i % vegetarianas.length];
+  const imagens = {
+    'Bowl Vegano de Quinoa': '/src/assets/recipes/bowl-quinoa-vegano.jpg',
+  };
+  
   return {
     id: `vegetariana-${i + 1}`,
     nome: `${base.nome} ${i > 4 ? `V${Math.floor(i / 5) + 1}` : ''}`,
-    imagem: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500',
+    imagem: imagens[base.nome] || '/src/assets/recipes/bowl-quinoa-vegano.jpg',
     categoria: 'almoco',
     tempoPreparo: 30 + (i % 20),
     calorias: base.calorias,

@@ -10,10 +10,14 @@ export const receitasMassas: Receita[] = Array.from({ length: 50 }, (_, i) => {
   ];
   
   const base = massas[i % massas.length];
+  const imagens = {
+    'Macarrão Integral ao Molho de Tomate': '/src/assets/recipes/macarrao-integral.jpg',
+  };
+  
   return {
     id: `massa-${i + 1}`,
     nome: `${base.nome} ${i > 4 ? `V${Math.floor(i / 5) + 1}` : ''}`,
-    imagem: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500',
+    imagem: imagens[base.nome] || '/src/assets/recipes/macarrao-integral.jpg',
     categoria: 'almoco',
     tempoPreparo: 25 + (i % 10),
     calorias: base.calorias,

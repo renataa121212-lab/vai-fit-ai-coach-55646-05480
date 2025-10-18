@@ -4,7 +4,7 @@ export const receitasAlmoco: Receita[] = [
   {
     id: 'almoco-extra-1',
     nome: 'Moqueca de Peixe Light',
-    imagem: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=500',
+    imagem: '/src/assets/recipes/salmao-grelhado.jpg',
     categoria: 'almoco',
     tempoPreparo: 35,
     calorias: 380,

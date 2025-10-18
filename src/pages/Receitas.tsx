@@ -18,10 +18,10 @@ import type { CategoriaRefeicao, MetaNutricional, MetodoPreparo, IngredienteDisp
 import bebidasDigestao from '@/assets/bebidas-digestao.jpg';
 import treinoJejum from '@/assets/treino-jejum.jpg';
 import vontadeDoce from '@/assets/vontade-doce.jpg';
-import alimentosNoite from '@/assets/alimentos-noite.jpg';
-import focoFimDeSemana from '@/assets/foco-fim-de-semana.jpg';
-import fomeNoite from '@/assets/fome-noite-improved.jpg';
-import horarioRefeicao from '@/assets/horario-refeicao.jpg';
+import alimentosNoite from '@/assets/alimentos-noite-new.jpg';
+import focoFimDeSemana from '@/assets/foco-fim-de-semana-new.jpg';
+import fomeNoite from '@/assets/fome-noite-new.jpg';
+import horarioRefeicao from '@/assets/horario-refeicao-new.jpg';
 
 const categoriasLabels: Record<CategoriaRefeicao, string> = {
   'cafe-da-manha': 'Café da Manhã',

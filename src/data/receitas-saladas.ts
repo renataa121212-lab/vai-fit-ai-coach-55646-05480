@@ -4,7 +4,7 @@ export const receitasSaladas: Receita[] = [
   {
     id: 'salada-extra-1',
     nome: 'Salada Caprese com Burrata',
-    imagem: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500',
+    imagem: '/src/assets/recipes/salada-verde.jpg',
     categoria: 'salada',
     tempoPreparo: 10,
     calorias: 320,
