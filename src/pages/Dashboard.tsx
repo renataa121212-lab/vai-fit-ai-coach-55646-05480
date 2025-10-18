@@ -58,20 +58,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Treino do Dia Card */}
-          <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/treinos')}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Treino do Dia</CardTitle>
-              <Dumbbell className="h-4 w-4 text-lavender" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-xl font-bold text-petroleum mb-2">Perna & Glúteos</div>
-              <p className="text-xs text-petroleum-light mb-3">45 min • Intermediário</p>
-              <Button className="w-full bg-mint hover:bg-mint-dark text-white">
-                Iniciar Treino
-              </Button>
-            </CardContent>
-          </Card>
 
           {/* Evolução Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/evolucao')}>
