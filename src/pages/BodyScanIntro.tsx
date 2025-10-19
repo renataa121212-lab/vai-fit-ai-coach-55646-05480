@@ -14,19 +14,38 @@ export default function BodyScanIntro() {
       
       <main className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-4xl mx-auto space-y-8">
-          {/* Hero Image */}
           <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
             <img 
               src={bodyScanIntro} 
-              alt="Escaneamento Corporal" 
+              alt="Silhueta feminina 3D com métricas corporais" 
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-petroleum/30 to-transparent flex items-end">
-              <div className="p-8 text-white">
+
+            {/* Overlay principal com gradiente e título */}
+            <div className="absolute inset-0">
+              <div className="absolute inset-0 bg-gradient-to-t from-petroleum/30 to-transparent" />
+
+              <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white">
                 <div className="flex items-center gap-3 mb-2">
                   <Scan className="h-8 w-8" />
-                  <h1 className="text-4xl font-bold">Escaneamento Corporal</h1>
+                  <h1 className="text-3xl md:text-4xl font-bold">Escaneamento Corporal</h1>
                 </div>
+              </div>
+
+              {/* Etiquetas de métricas – desktop */}
+              <div className="hidden md:flex flex-col gap-3 absolute top-6 right-6">
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Massa magra: 53,5 kg</div>
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Gordura corporal: 16,1%</div>
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Cintura: 92,2 cm</div>
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Panturrilha direita: 37,97 cm</div>
+              </div>
+
+              {/* Etiquetas de métricas – mobile */}
+              <div className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] grid grid-cols-2 gap-2">
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Massa magra: 53,5 kg</div>
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Gordura corporal: 16,1%</div>
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Cintura: 92,2 cm</div>
+                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Panturrilha direita: 37,97 cm</div>
               </div>
             </div>
           </div>
