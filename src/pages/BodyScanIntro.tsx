@@ -21,7 +21,7 @@ export default function BodyScanIntro() {
               alt="Escaneamento Corporal" 
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent flex items-end">
+            <div className="absolute inset-0 bg-gradient-to-t from-petroleum/30 to-transparent flex items-end">
               <div className="p-8 text-white">
                 <div className="flex items-center gap-3 mb-2">
                   <Scan className="h-8 w-8" />
