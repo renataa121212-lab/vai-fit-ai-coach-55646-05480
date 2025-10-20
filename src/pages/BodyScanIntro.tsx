@@ -23,7 +23,7 @@ export default function BodyScanIntro() {
 
             {/* Overlay principal com gradiente e título */}
             <div className="absolute inset-0">
-              <div className="absolute inset-0 bg-gradient-to-t from-petroleum/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-petroleum/50 via-petroleum/10 to-transparent" />
 
               <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white">
                 <div className="flex items-center gap-3 mb-2">
@@ -32,20 +32,67 @@ export default function BodyScanIntro() {
                 </div>
               </div>
 
-              {/* Etiquetas de métricas – desktop */}
-              <div className="hidden md:flex flex-col gap-3 absolute top-6 right-6">
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Massa magra: 53,5 kg</div>
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Gordura corporal: 16,1%</div>
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Cintura: 92,2 cm</div>
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-lg px-4 py-2 shadow-lg pointer-events-none">Panturrilha direita: 37,97 cm</div>
+              {/* Etiquetas – desktop (posicionadas) */}
+              <div className="hidden md:block">
+                <div className="absolute top-10 right-8 bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-2xl px-4 py-3 shadow-xl pointer-events-none">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-mint/15 text-mint grid place-items-center">💪</div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">MASSA MAGRA</div>
+                      <div className="text-2xl font-semibold">53,5 kg</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-28 left-8 bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-2xl px-4 py-3 shadow-xl pointer-events-none">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-mint/15 text-mint grid place-items-center">🔥</div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">GORDURA CORPORAL</div>
+                      <div className="text-2xl font-semibold">16,1%</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-1/2 right-8 -translate-y-1/2 bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-2xl px-4 py-3 shadow-xl pointer-events-none">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-mint/15 text-mint grid place-items-center">🧍‍♀️</div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">CINTURA</div>
+                      <div className="text-2xl font-semibold">92,2 cm</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-10 left-8 bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-2xl px-4 py-3 shadow-xl pointer-events-none">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-mint/15 text-mint grid place-items-center">🦶</div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">PANTURRILHA DIREITA</div>
+                      <div className="text-2xl font-semibold">37,97 cm</div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Etiquetas de métricas – mobile */}
+              {/* Etiquetas – mobile */}
               <div className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] grid grid-cols-2 gap-2">
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Massa magra: 53,5 kg</div>
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Gordura corporal: 16,1%</div>
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Cintura: 92,2 cm</div>
-                <div className="bg-background/70 text-foreground backdrop-blur-md border border-border/40 rounded-md px-3 py-2 text-xs shadow-lg pointer-events-none">Panturrilha direita: 37,97 cm</div>
+                <div className="bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-xl px-3 py-2 shadow-md pointer-events-none">
+                  <div className="text-[10px] tracking-wider uppercase text-muted-foreground">MASSA MAGRA</div>
+                  <div className="text-sm font-semibold">53,5 kg</div>
+                </div>
+                <div className="bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-xl px-3 py-2 shadow-md pointer-events-none">
+                  <div className="text-[10px] tracking-wider uppercase text-muted-foreground">GORDURA CORPORAL</div>
+                  <div className="text-sm font-semibold">16,1%</div>
+                </div>
+                <div className="bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-xl px-3 py-2 shadow-md pointer-events-none">
+                  <div className="text-[10px] tracking-wider uppercase text-muted-foreground">CINTURA</div>
+                  <div className="text-sm font-semibold">92,2 cm</div>
+                </div>
+                <div className="bg-card/95 text-foreground backdrop-blur-sm border border-border/40 rounded-xl px-3 py-2 shadow-md pointer-events-none">
+                  <div className="text-[10px] tracking-wider uppercase text-muted-foreground">PANTURRILHA DIREITA</div>
+                  <div className="text-sm font-semibold">37,97 cm</div>
+                </div>
               </div>
             </div>
           </div>
