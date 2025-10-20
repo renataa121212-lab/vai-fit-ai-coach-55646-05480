@@ -21,10 +21,8 @@ export default function BodyScanIntro() {
               className="w-full h-full object-cover"
             />
 
-            {/* Overlay principal com gradiente e título */}
+            {/* Overlay principal com título */}
             <div className="absolute inset-0">
-              <div className="absolute inset-0 bg-gradient-to-t from-petroleum/50 via-petroleum/10 to-transparent" />
-
               <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white">
                 <div className="flex items-center gap-3 mb-2">
                   <Scan className="h-8 w-8" />
