@@ -1,6 +1,6 @@
 import { Receita } from '@/types/receita';
 
-export const receitasFitnessExtras: Receita[] = Array.from({ length: 50 }, (_, i) => {
+export const receitasFitnessExtras: Receita[] = Array.from({ length: 32 }, (_, i) => {
   const extras = [
     { nome: 'Bowl de Açaí Fitness', calorias: 350, ingredientes: ['Açaí', 'Banana', 'Granola', 'Whey'], proteinas: 25, carboidratos: 48, gorduras: 8 },
     { nome: 'Panqueca Proteica', calorias: 280, ingredientes: ['Whey', 'Aveia', 'Ovo', 'Banana'], proteinas: 28, carboidratos: 32, gorduras: 6 },

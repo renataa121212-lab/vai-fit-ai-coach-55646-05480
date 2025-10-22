@@ -1,6 +1,6 @@
 import { Receita } from '@/types/receita';
 
-export const receitasLowCarb: Receita[] = Array.from({ length: 50 }, (_, i) => {
+export const receitasLowCarb: Receita[] = Array.from({ length: 35 }, (_, i) => {
   const lowcarb = [
     { nome: 'Frango com Cream Cheese', calorias: 380, ingredientes: ['Frango', 'Cream cheese', 'Bacon', 'Temperos'], proteinas: 42, carboidratos: 4, gorduras: 22 },
     { nome: 'Omelete Recheada Low Carb', calorias: 320, ingredientes: ['Ovos', 'Queijo', 'Presunto', 'Espinafre'], proteinas: 28, carboidratos: 6, gorduras: 22 },

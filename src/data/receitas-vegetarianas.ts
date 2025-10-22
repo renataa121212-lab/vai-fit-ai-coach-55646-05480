@@ -1,6 +1,6 @@
 import { Receita } from '@/types/receita';
 
-export const receitasVegetarianas: Receita[] = Array.from({ length: 50 }, (_, i) => {
+export const receitasVegetarianas: Receita[] = Array.from({ length: 35 }, (_, i) => {
   const vegetarianas = [
     { nome: 'Bowl Vegano de Quinoa', calorias: 380, ingredientes: ['Quinoa', 'Grão-de-bico', 'Abacate', 'Tomate'], proteinas: 16, carboidratos: 58, gorduras: 12 },
     { nome: 'Hambúrguer de Lentilha', calorias: 280, ingredientes: ['Lentilha', 'Aveia', 'Cebola', 'Temperos'], proteinas: 18, carboidratos: 42, gorduras: 6 },

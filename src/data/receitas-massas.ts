@@ -1,6 +1,6 @@
 import { Receita } from '@/types/receita';
 
-export const receitasMassas: Receita[] = Array.from({ length: 50 }, (_, i) => {
+export const receitasMassas: Receita[] = Array.from({ length: 32 }, (_, i) => {
   const massas = [
     { nome: 'Macarrão Integral ao Molho de Tomate', calorias: 320, ingredientes: ['Macarrão integral', 'Tomate', 'Alho', 'Manjericão'], proteinas: 12, carboidratos: 58, gorduras: 6 },
     { nome: 'Espaguete de Abobrinha com Camarão', calorias: 280, ingredientes: ['Abobrinha', 'Camarão', 'Alho', 'Azeite'], proteinas: 28, carboidratos: 18, gorduras: 12 },

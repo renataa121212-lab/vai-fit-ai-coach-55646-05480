@@ -1,6 +1,6 @@
 import { Receita } from '@/types/receita';
 
-export const receitasSmoothies: Receita[] = Array.from({ length: 50 }, (_, i) => {
+export const receitasSmoothies: Receita[] = Array.from({ length: 28 }, (_, i) => {
   const smoothies = [
     { nome: 'Smoothie de Morango e Banana', calorias: 180, ingredientes: ['Morango', 'Banana', 'Iogurte', 'Mel'], proteinas: 6, carboidratos: 38, gorduras: 2 },
     { nome: 'Smoothie Verde Detox', calorias: 150, ingredientes: ['Espinafre', 'Abacaxi', 'Gengibre', 'Água de coco'], proteinas: 3, carboidratos: 32, gorduras: 1 },

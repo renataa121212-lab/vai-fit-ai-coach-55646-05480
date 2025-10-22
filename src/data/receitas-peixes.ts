@@ -1,6 +1,6 @@
 import { Receita } from '@/types/receita';
 
-export const receitasPeixes: Receita[] = Array.from({ length: 50 }, (_, i) => {
+export const receitasPeixes: Receita[] = Array.from({ length: 32 }, (_, i) => {
   const peixes = [
     { nome: 'Salmão Grelhado com Legumes', calorias: 420, ingredientes: ['Salmão', 'Brócolis', 'Cenoura', 'Limão'], proteinas: 38, carboidratos: 12, gorduras: 24 },
     { nome: 'Tilápia ao Molho de Ervas', calorias: 280, ingredientes: ['Tilápia', 'Manjericão', 'Salsinha', 'Limão'], proteinas: 32, carboidratos: 8, gorduras: 12 },
