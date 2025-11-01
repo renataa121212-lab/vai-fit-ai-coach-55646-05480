@@ -222,46 +222,6 @@ export default function Receitas() {
 
             <Card
               className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Por que sinto fome mesmo depois de comer? Como posso controlar melhor a saciedade?')}
-            >
-              <div className="relative h-40 overflow-hidden">
-                <img 
-                  src={fomeNoite} 
-                  alt="Fome depois de comer" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Por que sinto fome mesmo depois de comer?
-                  </h3>
-                  <p className="text-xs text-white/80">Entenda os sinais do seu corpo</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Comer tarde da noite atrapalha meus resultados? Quais são os mitos e verdades sobre horário das refeições?')}
-            >
-              <div className="relative h-40 overflow-hidden">
-                <img 
-                  src={horarioRefeicao} 
-                  alt="Horário das refeições" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Comer tarde atrapalha meus resultados?
-                  </h3>
-                  <p className="text-xs text-white/80">Mitos e verdades sobre o horário das refeições</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
               onClick={() => setLiviaTrigger('O que posso comer antes de dormir que não atrapalhe meu sono e me ajude a emagrecer?')}
             >
               <div className="relative h-40 overflow-hidden">
