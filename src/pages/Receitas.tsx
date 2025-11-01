@@ -18,10 +18,6 @@ import type { CategoriaRefeicao, MetaNutricional, MetodoPreparo, IngredienteDisp
 import bebidasDigestao from '@/assets/bebidas-digestao.jpg';
 import treinoJejum from '@/assets/treino-jejum.jpg';
 import vontadeDoce from '@/assets/vontade-doce.jpg';
-import alimentosNoite from '@/assets/alimentos-noite-new.jpg';
-import focoFimDeSemana from '@/assets/foco-fim-de-semana-new.jpg';
-import fomeNoite from '@/assets/fome-noite-new.jpg';
-import horarioRefeicao from '@/assets/horario-refeicao-new.jpg';
 
 const categoriasLabels: Record<CategoriaRefeicao, string> = {
   'cafe-da-manha': 'Café da Manhã',
@@ -216,46 +212,6 @@ export default function Receitas() {
                     Como lidar com a vontade de doce à noite?
                   </h3>
                   <p className="text-xs text-white/80">Estratégias práticas</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('O que posso comer antes de dormir que não atrapalhe meu sono e me ajude a emagrecer?')}
-            >
-              <div className="relative h-40 overflow-hidden">
-                <img 
-                  src={alimentosNoite} 
-                  alt="Alimentação noturna" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    O que comer antes de dormir?
-                  </h3>
-                  <p className="text-xs text-white/80">Melhore seu sono</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Como manter o foco na alimentação saudável durante o fim de semana? Preciso de dicas práticas!')}
-            >
-              <div className="relative h-40 overflow-hidden">
-                <img 
-                  src={focoFimDeSemana} 
-                  alt="Foco no fim de semana" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Como manter o foco no fim de semana?
-                  </h3>
-                  <p className="text-xs text-white/80">Equilíbrio e diversão</p>
                 </div>
               </div>
             </Card>
