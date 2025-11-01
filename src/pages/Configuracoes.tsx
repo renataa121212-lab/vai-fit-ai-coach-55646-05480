@@ -61,7 +61,7 @@ const Configuracoes = () => {
 
   
   // Configurações de perfil
-  const [nome, setNome] = useState(user?.full_name || '');
+  const [nome, setNome] = useState(user?.user_metadata?.full_name || '');
   const [genero, setGenero] = useState('');
   const [peso, setPeso] = useState('');
   

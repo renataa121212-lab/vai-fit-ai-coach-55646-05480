@@ -22,7 +22,7 @@ const Dashboard = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-petroleum mb-2">
-            Olá, {user?.full_name || 'usuário'}! 👋
+            Olá, {user?.user_metadata?.full_name || 'usuário'}! 👋
           </h1>
           <p className="text-petroleum-light">Vamos conquistar os objetivos hoje!</p>
         </div>
