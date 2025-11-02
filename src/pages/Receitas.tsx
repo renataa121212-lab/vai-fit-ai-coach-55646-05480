@@ -167,7 +167,6 @@ export default function Receitas() {
                   alt="Bebidas para digestão" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
                     As melhores bebidas para melhorar a digestão
@@ -187,7 +186,6 @@ export default function Receitas() {
                   alt="Treino em jejum" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
                     Quando treinar durante o jejum?
@@ -207,7 +205,6 @@ export default function Receitas() {
                   alt="Vontade de doce" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
                     Como lidar com a vontade de doce à noite?
@@ -227,7 +224,7 @@ export default function Receitas() {
                   alt="Foco no fim de semana" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-petroleum/90 to-transparent" />
+                
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
                     Como manter o foco no fim de semana?
