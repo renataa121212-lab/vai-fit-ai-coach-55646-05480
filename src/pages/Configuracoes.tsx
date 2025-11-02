@@ -12,6 +12,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import AppNav from '@/components/AppNav';
 import { useTranslation } from '@/lib/i18n';
+import { supabase } from '@/integrations/supabase/client';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -70,8 +71,45 @@ const Configuracoes = () => {
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
-  const handleSaveProfile = () => {
-    toast.success('Perfil atualizado com sucesso!');
+  const handleSaveProfile = async () => {
+    try {
+      // Atualizar perfil no Supabase
+      const { error } = await supabase.auth.updateUser({
+        data: {
+          full_name: nome,
+          gender: genero,
+          weight: peso
+        }
+      });
+
+      if (error) throw error;
+      
+      toast.success('Perfil atualizado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao salvar perfil:', error);
+      toast.error('Erro ao atualizar perfil');
+    }
+  };
+
+  const handleChangePassword = () => {
+    toast.info('Em breve você poderá alterar sua senha diretamente no app');
+  };
+
+  const handleViewDevices = () => {
+    toast.info('Funcionalidade de gerenciamento de dispositivos em desenvolvimento');
+  };
+
+  const handleUpgradePremium = () => {
+    toast.info('Planos premium em breve! Fique ligado 🚀');
+  };
+
+  const handleSaveNotifications = () => {
+    localStorage.setItem('notifications', JSON.stringify({
+      push: pushNotifications,
+      email: emailNotifications,
+      sound: soundEnabled
+    }));
+    toast.success('Preferências de notificação salvas!');
   };
 
   const handleLogout = async () => {
@@ -185,7 +223,7 @@ const Configuracoes = () => {
                 <CardTitle>Segurança</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={handleChangePassword}>
                   Alterar senha
                 </Button>
                 <div className="flex items-center justify-between">
@@ -193,7 +231,7 @@ const Configuracoes = () => {
                     <Smartphone className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm">Gerenciar dispositivos</span>
                   </div>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" onClick={handleViewDevices}>
                     Ver todos
                   </Button>
                 </div>
@@ -241,21 +279,25 @@ const Configuracoes = () => {
                   />
                 </div>
 
-                <div className="pt-4 border-t">
-                  <Label>Horário silencioso</Label>
-                  <p className="text-sm text-muted-foreground mb-4">Configure períodos sem notificações</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label className="text-xs">Início</Label>
-                      <Input type="time" defaultValue="22:00" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-xs">Fim</Label>
-                      <Input type="time" defaultValue="07:00" />
+                  <div className="pt-4 border-t">
+                    <Label>Horário silencioso</Label>
+                    <p className="text-sm text-muted-foreground mb-4">Configure períodos sem notificações</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label className="text-xs">Início</Label>
+                        <Input type="time" defaultValue="22:00" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs">Fim</Label>
+                        <Input type="time" defaultValue="07:00" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
+
+                  <Button onClick={handleSaveNotifications} className="w-full bg-mint hover:bg-mint-dark text-white mt-4">
+                    Salvar preferências
+                  </Button>
+                </CardContent>
             </Card>
           </TabsContent>
 
@@ -341,7 +383,7 @@ const Configuracoes = () => {
                   <div className="text-sm opacity-90">Plano Gratuito</div>
                   <div className="text-2xl font-bold">R$ 0,00/mês</div>
                 </div>
-                <Button className="w-full bg-mint hover:bg-mint-dark text-white">
+                <Button className="w-full bg-mint hover:bg-mint-dark text-white" onClick={handleUpgradePremium}>
                   Fazer upgrade para Premium
                 </Button>
                 <p className="text-sm text-muted-foreground text-center">
