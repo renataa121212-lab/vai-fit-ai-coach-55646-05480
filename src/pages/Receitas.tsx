@@ -213,26 +213,6 @@ export default function Receitas() {
                 </div>
               </div>
             </Card>
-
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Como manter o foco na alimentação saudável durante o fim de semana? Preciso de dicas práticas!')}
-            >
-              <div className="relative h-40 overflow-hidden">
-                <img 
-                  src={focoFimDeSemana} 
-                  alt="Foco no fim de semana" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                />
-                
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Como manter o foco no fim de semana?
-                  </h3>
-                  <p className="text-xs text-white/80">Equilíbrio e diversão</p>
-                </div>
-              </div>
-            </Card>
           </div>
 
           {/* Tabs Principais: Todas receitas e Favoritos */}
