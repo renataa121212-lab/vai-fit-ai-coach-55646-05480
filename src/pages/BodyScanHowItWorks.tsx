@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, ArrowLeft, Smartphone, RotateCcw, Sparkles } from 'lucide-react';
 import AppNav from '@/components/AppNav';
-import bodyScanHowItWorks from '@/assets/body-scan-how-it-works-final.png';
 
 export default function BodyScanHowItWorks() {
   const navigate = useNavigate();
@@ -30,15 +29,6 @@ export default function BodyScanHowItWorks() {
           <div className="text-center space-y-2">
             <h1 className="text-4xl font-bold text-petroleum">Como funciona?</h1>
             <p className="text-muted-foreground">É simples, rápido e 100% no seu celular</p>
-          </div>
-
-          {/* Imagem Ilustrativa */}
-          <div className="relative w-full h-96 rounded-2xl overflow-hidden flex items-center justify-center">
-            <img 
-              src={bodyScanHowItWorks} 
-              alt="Como funciona o escaneamento" 
-              className="w-full h-full object-contain"
-            />
           </div>
 
           {/* Instruções Passo a Passo */}

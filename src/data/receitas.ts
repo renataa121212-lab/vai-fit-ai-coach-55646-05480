@@ -13,7 +13,6 @@ import { receitasMassas } from './receitas-massas';
 import { receitasPeixes } from './receitas-peixes';
 import { receitasVegetarianas } from './receitas-vegetarianas';
 import { receitasLowCarb } from './receitas-lowcarb';
-import { receitasFitnessExtras } from './receitas-fitness-extras';
 
 // Banco de dados base de receitas
 const receitasBase: Receita[] = [
@@ -2122,6 +2121,5 @@ export const receitas: Receita[] = [
   ...receitasMassas,
   ...receitasPeixes,
   ...receitasVegetarianas,
-  ...receitasLowCarb,
-  ...receitasFitnessExtras
+  ...receitasLowCarb
 ];

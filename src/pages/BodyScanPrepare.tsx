@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowRight, ArrowLeft, Volume2, UserCircle2, Shirt, Home, Smartphone, Check } from 'lucide-react';
 import AppNav from '@/components/AppNav';
-import bodyScanProcess from '@/assets/body-scan-process-final.png';
 
 export default function BodyScanPrepare() {
   const navigate = useNavigate();
@@ -59,15 +58,6 @@ export default function BodyScanPrepare() {
           <div className="text-center space-y-2">
             <h1 className="text-4xl font-bold text-petroleum">Pronto para começar?</h1>
             <p className="text-muted-foreground">Vamos preparar tudo para seu escaneamento</p>
-          </div>
-
-          {/* Imagem de exemplo */}
-          <div className="relative w-full h-80 rounded-2xl overflow-hidden flex items-center justify-center">
-            <img 
-              src={bodyScanProcess} 
-              alt="Exemplo de preparação" 
-              className="w-full h-full object-contain"
-            />
           </div>
 
           {/* Informações Básicas */}

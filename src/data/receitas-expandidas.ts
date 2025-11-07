@@ -69,28 +69,6 @@ export const receitasExpandidas: Receita[] = [
     gorduras: 6
   },
   {
-    id: 'cafe-14',
-    nome: 'Crepioca Recheada',
-    imagem: 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=500',
-    categoria: 'cafe-da-manha',
-    tempoPreparo: 12,
-    calorias: 310,
-    ingredientes: ['2 ovos', '2 col tapioca', 'Queijo cottage', 'Peito de peru', 'Tomate'],
-    modoPreparo: [
-      'Misturar ovos batidos com tapioca',
-      'Despejar na frigideira',
-      'Adicionar recheio quando virar',
-      'Dobrar e servir'
-    ],
-    dicaLivia: 'União perfeita de crepe e tapioca! Proteína + sem glúten.',
-    metasNutricionais: ['rica-em-proteinas', 'sem-gluten'],
-    metodosPreparo: ['rapido', 'facil'],
-    ingredientesPrincipais: ['ovos'],
-    proteinas: 22,
-    carboidratos: 26,
-    gorduras: 12
-  },
-  {
     id: 'cafe-15',
     nome: 'Mingau de Aveia com Frutas',
     imagem: 'https://images.unsplash.com/photo-1593560704563-f176a2eb61db?w=500',
