@@ -33,11 +33,11 @@ export default function BodyScanHowItWorks() {
           </div>
 
           {/* Imagem Ilustrativa */}
-          <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-xl">
+          <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-xl bg-gradient-to-b from-blue-50 to-purple-50">
             <img 
               src={bodyScanHowItWorks} 
               alt="Como funciona o escaneamento" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
 
