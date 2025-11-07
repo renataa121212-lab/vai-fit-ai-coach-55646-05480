@@ -62,7 +62,7 @@ export default function BodyScanPrepare() {
           </div>
 
           {/* Imagem de exemplo */}
-          <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-xl bg-gradient-to-b from-blue-50 to-purple-50">
+          <div className="relative w-full h-80 rounded-2xl overflow-hidden flex items-center justify-center">
             <img 
               src={bodyScanProcess} 
               alt="Exemplo de preparação" 
