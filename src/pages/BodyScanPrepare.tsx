@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowRight, ArrowLeft, Volume2, UserCircle2, Shirt, Home, Smartphone, Check } from 'lucide-react';
 import AppNav from '@/components/AppNav';
-import bodyScanProcess from '@/assets/body-scan-process-example.jpg';
+import bodyScanProcess from '@/assets/body-scan-process-final.png';
 
 export default function BodyScanPrepare() {
   const navigate = useNavigate();
