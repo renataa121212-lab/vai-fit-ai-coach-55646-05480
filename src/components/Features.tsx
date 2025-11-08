@@ -7,43 +7,43 @@ import foodIcon from "@/assets/food-recognition-icon.png";
 const features = [
   {
     icon: Clock,
-    title: "Jejum Inteligente",
-    description: "Timer personalizado com protocolos 16:8, 18:6, 20:4 e alertas automáticos",
+    title: "Smart Fasting",
+    description: "Personalized timer with 16:8, 18:6, 20:4 protocols and automatic alerts",
     color: "mint",
     image: fastingIcon,
   },
   {
     icon: Camera,
-    title: "Escaneamento Corporal",
-    description: "Análise completa de gordura, massa muscular e medidas usando apenas a câmera",
+    title: "Body Scanning",
+    description: "Complete analysis of body fat, muscle mass and measurements using just your camera",
     color: "lavender",
     image: null,
   },
   {
     icon: Camera,
-    title: "IA de Alimentos",
-    description: "Tire foto do prato e veja calorias e macros instantaneamente",
+    title: "Food AI",
+    description: "Take a photo of your plate and instantly see calories and macros",
     color: "coral",
     image: foodIcon,
   },
   {
     icon: Target,
-    title: "+400 Receitas Fitness",
-    description: "Receitas saudáveis para todas as dietas: vegana, low-carb, sem glúten e mais",
+    title: "Healthy Recipes",
+    description: "Nutritious recipes for all diets: vegan, low-carb, gluten-free and more",
     color: "mint",
     image: null,
   },
   {
     icon: Trophy,
-    title: "Lívia - Sua Nutricionista IA",
-    description: "Assistente inteligente 24/7 para tirar dúvidas sobre alimentação e treinos",
+    title: "Lívia - Your AI Nutritionist",
+    description: "24/7 smart assistant to answer questions about nutrition and workouts",
     color: "coral",
     image: null,
   },
   {
     icon: TrendingUp,
-    title: "Evolução Visual",
-    description: "Acompanhe peso, medidas e progresso com linha do tempo fotográfica",
+    title: "Visual Progress",
+    description: "Track weight, measurements and progress with a photo timeline",
     color: "lavender",
     image: null,
   },
@@ -55,13 +55,13 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-bold text-petroleum">
-            Tudo que você precisa para{" "}
+            Everything you need to{" "}
             <span className="bg-gradient-hero bg-clip-text text-transparent">
-              transformar seu corpo
+              transform your body
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ferramentas poderosas de IA e personalização para você alcançar seus objetivos
+            Powerful AI tools and personalization to help you reach your goals
           </p>
         </div>
         

@@ -22,38 +22,38 @@ const Dashboard = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-petroleum mb-2">
-            Olá, {user?.user_metadata?.full_name || 'usuário'}! 👋
+            Hello, {user?.user_metadata?.full_name || 'user'}! 👋
           </h1>
-          <p className="text-petroleum-light">Vamos conquistar os objetivos hoje!</p>
+          <p className="text-petroleum-light">Let's achieve your goals today!</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Metas Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/metas')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Suas Metas</CardTitle>
+              <CardTitle className="text-sm font-medium text-petroleum">Your Goals</CardTitle>
               <Target className="h-4 w-4 text-mint" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-petroleum mb-2">{goalWeight}kg</div>
-              <p className="text-xs text-petroleum-light mb-3">Meta de peso</p>
+              <p className="text-xs text-petroleum-light mb-3">Weight goal</p>
               <Progress value={100 - progressPercentage} className="w-full" />
-              <p className="text-xs text-petroleum-light mt-2">Faltam {Math.abs(currentWeight - goalWeight)}kg</p>
+              <p className="text-xs text-petroleum-light mt-2">{Math.abs(currentWeight - goalWeight)}kg to go</p>
             </CardContent>
           </Card>
 
           {/* Timer de Jejum Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/jejum')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Jejum Intermitente</CardTitle>
+              <CardTitle className="text-sm font-medium text-petroleum">Intermittent Fasting</CardTitle>
               <Timer className="h-4 w-4 text-coral" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-petroleum mb-2">16:8</div>
-              <p className="text-xs text-petroleum-light mb-3">Protocolo ativo</p>
+              <p className="text-xs text-petroleum-light mb-3">Active protocol</p>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-petroleum-light">Próximo jejum:</span>
-                <span className="text-xs font-medium text-coral">20:00</span>
+                <span className="text-xs text-petroleum-light">Next fast:</span>
+                <span className="text-xs font-medium text-coral">8:00 PM</span>
               </div>
             </CardContent>
           </Card>
@@ -62,20 +62,20 @@ const Dashboard = () => {
           {/* Evolução Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/evolucao')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Sua Evolução</CardTitle>
+              <CardTitle className="text-sm font-medium text-petroleum">Your Progress</CardTitle>
               <TrendingUp className="h-4 w-4 text-coral" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-petroleum mb-2">-2kg</div>
-              <p className="text-xs text-petroleum-light mb-3">Nesta semana</p>
+              <p className="text-xs text-petroleum-light mb-3">This week</p>
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-petroleum-light">Peso atual:</span>
+                  <span className="text-petroleum-light">Current weight:</span>
                   <span className="font-medium text-petroleum">{currentWeight}kg</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-petroleum-light">Humor:</span>
-                  <span className="font-medium text-coral">😊 Ótimo</span>
+                  <span className="text-petroleum-light">Mood:</span>
+                  <span className="font-medium text-coral">😊 Great</span>
                 </div>
               </div>
             </CardContent>
@@ -84,16 +84,16 @@ const Dashboard = () => {
           {/* Reconhecimento de Alimentos Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/alimentos')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Scan de Alimentos</CardTitle>
+              <CardTitle className="text-sm font-medium text-petroleum">Food Scan</CardTitle>
               <Camera className="h-4 w-4 text-mint" />
             </CardHeader>
             <CardContent>
               <div className="text-center mb-3">
                 <Camera className="h-8 w-8 text-mint mx-auto mb-2" />
-                <p className="text-xs text-petroleum-light">Escaneie sua refeição</p>
+                <p className="text-xs text-petroleum-light">Scan your meal</p>
               </div>
               <Button className="w-full bg-mint hover:bg-mint-dark text-white">
-                Tirar Foto
+                Take Photo
               </Button>
             </CardContent>
           </Card>
@@ -101,14 +101,14 @@ const Dashboard = () => {
           {/* Diário Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/evolucao')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Diário</CardTitle>
+              <CardTitle className="text-sm font-medium text-petroleum">Journal</CardTitle>
               <BookOpen className="h-4 w-4 text-lavender" />
             </CardHeader>
             <CardContent>
-              <div className="text-xl font-bold text-petroleum mb-2">7 dias</div>
-              <p className="text-xs text-petroleum-light mb-3">Sequência ativa</p>
+              <div className="text-xl font-bold text-petroleum mb-2">7 days</div>
+              <p className="text-xs text-petroleum-light mb-3">Active streak</p>
               <Button variant="outline" className="w-full border-lavender text-lavender hover:bg-lavender hover:text-white">
-                Ver Histórico
+                View History
               </Button>
             </CardContent>
           </Card>
@@ -116,16 +116,16 @@ const Dashboard = () => {
           {/* Escaneamento Corporal Card */}
           <Card className="bg-gradient-card border-mint/20 hover:shadow-md transition-all duration-300 cursor-pointer" onClick={() => navigate('/body-scan/intro')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-petroleum">Scan Corporal</CardTitle>
+              <CardTitle className="text-sm font-medium text-petroleum">Body Scan</CardTitle>
               <Scan className="h-4 w-4 text-coral" />
             </CardHeader>
             <CardContent>
               <div className="text-center mb-3">
                 <Scan className="h-8 w-8 text-coral mx-auto mb-2" />
-                <p className="text-xs text-petroleum-light">Análise 3D do corpo</p>
+                <p className="text-xs text-petroleum-light">3D body analysis</p>
               </div>
               <Button className="w-full bg-coral hover:bg-coral-dark text-white">
-                Iniciar Scan
+                Start Scan
               </Button>
             </CardContent>
           </Card>
@@ -136,22 +136,22 @@ const Dashboard = () => {
           <Card className="bg-gradient-hero text-white">
             <CardContent className="pt-6">
               <div className="text-center">
-                <h2 className="text-2xl font-bold mb-2">Continue assim! 🚀</h2>
+                <h2 className="text-2xl font-bold mb-2">Keep it up! 🚀</h2>
                 <p className="text-white/90 mb-4">
-                  No caminho certo para atingir as metas de saúde e bem-estar!
+                  You're on the right track to achieving your health and wellness goals!
                 </p>
                 <div className="grid grid-cols-3 gap-4 mt-6">
                   <div className="text-center">
                     <div className="text-xl font-bold">15</div>
-                    <div className="text-xs text-white/80">Dias ativos</div>
+                    <div className="text-xs text-white/80">Active days</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xl font-bold">8</div>
-                    <div className="text-xs text-white/80">Treinos completos</div>
+                    <div className="text-xs text-white/80">Workouts completed</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xl font-bold">3</div>
-                    <div className="text-xs text-white/80">Metas atingidas</div>
+                    <div className="text-xs text-white/80">Goals achieved</div>
                   </div>
                 </div>
               </div>
@@ -162,8 +162,8 @@ const Dashboard = () => {
       
       {/* Lívia Chat */}
       <LiviaChat 
-        context="Dashboard - visão geral do progresso do usuário"
-        initialMessage="Olá! Sou a Lívia, sua especialista fitness. Como posso te ajudar hoje? 💪"
+        context="Dashboard - user progress overview"
+        initialMessage="Hello! I'm Lívia, your fitness expert. How can I help you today? 💪"
       />
     </div>
   );

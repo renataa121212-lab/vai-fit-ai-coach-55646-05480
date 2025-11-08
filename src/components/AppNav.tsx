@@ -16,13 +16,13 @@ const AppNav = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/dashboard', icon: Home, label: 'Principal' },
-    { path: '/metas', icon: Target, label: 'Metas' },
-    { path: '/jejum', icon: Timer, label: 'Jejum' },
-    { path: '/receitas', icon: ChefHat, label: 'Receitas' },
-    { path: '/evolucao', icon: TrendingUp, label: 'Evolução' },
-    { path: '/alimentos', icon: Camera, label: 'Alimentos' },
-    { path: '/body-scan/intro', icon: Scan, label: 'Scan Corporal' },
+    { path: '/dashboard', icon: Home, label: 'Home' },
+    { path: '/metas', icon: Target, label: 'Goals' },
+    { path: '/jejum', icon: Timer, label: 'Fasting' },
+    { path: '/receitas', icon: ChefHat, label: 'Recipes' },
+    { path: '/evolucao', icon: TrendingUp, label: 'Progress' },
+    { path: '/alimentos', icon: Camera, label: 'Foods' },
+    { path: '/body-scan/intro', icon: Scan, label: 'Body Scan' },
   ];
 
   return (
@@ -72,11 +72,11 @@ const AppNav = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem onClick={() => navigate('/configuracoes')}>
-                Configurações
+                Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-destructive">
-                Sair
+                Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
