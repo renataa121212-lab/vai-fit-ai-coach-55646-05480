@@ -51,30 +51,30 @@ const Metas = () => {
       setMetas(data || []);
     } catch (error) {
       console.error('Error loading goals:', error);
-      toast.error('Erro ao carregar metas');
+      toast.error('Error loading goals');
     } finally {
       setLoading(false);
     }
   };
 
   const achievements = [
-    { id: 1, title: "Primeira Semana", icon: "🎯", description: "Completou 7 dias consecutivos" },
-    { id: 2, title: "Dedicação", icon: "💪", description: "20 treinos completados" },
-    { id: 3, title: "Consistência", icon: "⚡", description: "14 dias de jejum seguidos" },
-    { id: 4, title: "Transformação", icon: "🏆", description: "Primeira meta de peso atingida" }
+    { id: 1, title: "First Week", icon: "🎯", description: "Completed 7 consecutive days" },
+    { id: 2, title: "Dedication", icon: "💪", description: "20 workouts completed" },
+    { id: 3, title: "Consistency", icon: "⚡", description: "14 days of fasting in a row" },
+    { id: 4, title: "Transformation", icon: "🏆", description: "First weight goal achieved" }
   ];
 
   const motivationalPhrases = [
-    "Cada dia é uma nova oportunidade! 💪",
-    "Você está mais forte do que pensa! 🌟",
-    "Progresso, não perfeição! 🚀",
-    "Seu futuro eu agradece! ✨",
-    "Pequenos passos, grandes resultados! 🎯"
+    "Every day is a new opportunity! 💪",
+    "You're stronger than you think! 🌟",
+    "Progress, not perfection! 🚀",
+    "Your future self thanks you! ✨",
+    "Small steps, big results! 🎯"
   ];
 
   const handleCreateGoal = async () => {
     if (!newGoal.title || !newGoal.targetValue || !user) {
-      toast.error('Preencha todos os campos obrigatórios');
+      toast.error('Fill in all required fields');
       return;
     }
 
@@ -96,12 +96,12 @@ const Metas = () => {
 
     if (error) {
       console.error('Error creating goal:', error);
-      toast.error('Erro ao criar meta');
+      toast.error('Error creating goal');
       setLoading(false);
       return;
     }
 
-    toast.success('Meta criada com sucesso!');
+    toast.success('Goal created successfully!');
     setNewGoal({
       title: '',
       description: '',
@@ -117,7 +117,6 @@ const Metas = () => {
 
   const getProgressPercentage = (current: number, target: number, type: string) => {
     if (type === 'weight') {
-      // Para peso, assumimos que começou em 80kg e quer chegar a 70kg
       const startValue = 80;
       return Math.max(0, Math.min(100, ((startValue - current) / (startValue - target)) * 100));
     }
@@ -163,11 +162,11 @@ const Metas = () => {
           </Button>
         </div>
 
-        {/* Frase Motivacional Diária */}
+        {/* Motivational Phrase */}
         <Card className="bg-gradient-hero text-white mb-6">
           <CardContent className="pt-6">
             <div className="text-center">
-              <h2 className="text-xl font-bold mb-2">💫 Motivação do Dia</h2>
+              <h2 className="text-xl font-bold mb-2">💫 Daily Motivation</h2>
               <p className="text-lg text-white/90">
                 {motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]}
               </p>
@@ -176,14 +175,14 @@ const Metas = () => {
         </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Metas Ativas */}
+          {/* Active Goals */}
           <div className="lg:col-span-2 space-y-6">
             <div>
               <h2 className="text-xl font-semibold text-petroleum mb-4">{t('activeGoals')}</h2>
               {loading ? (
-                <p className="text-petroleum-light">Carregando...</p>
+                <p className="text-petroleum-light">Loading...</p>
               ) : metas.filter(meta => !meta.completed).length === 0 ? (
-                <p className="text-petroleum-light">Nenhuma meta ativa ainda.</p>
+                <p className="text-petroleum-light">No active goals yet.</p>
               ) : (
                 <div className="space-y-4">
                   {metas.filter(meta => !meta.completed).map((meta) => (
@@ -204,10 +203,10 @@ const Metas = () => {
                         
                         <div className="space-y-3">
                           <div className="flex justify-between text-sm">
-                            <span className="text-petroleum-light">Progresso:</span>
+                            <span className="text-petroleum-light">Progress:</span>
                             <span className="font-medium text-petroleum">
                               {meta.current_value}/{meta.target_value}
-                              {meta.goal_type === 'weight' ? 'kg' : meta.goal_type === 'workout' ? ' treinos' : ' dias'}
+                              {meta.goal_type === 'weight' ? 'kg' : meta.goal_type === 'workout' ? ' workouts' : ' days'}
                             </span>
                           </div>
                           
@@ -218,10 +217,10 @@ const Metas = () => {
                           
                           <div className="flex justify-between items-center text-xs">
                             <span className="text-petroleum-light">
-                              {meta.deadline && `Prazo: ${new Date(meta.deadline).toLocaleDateString('pt-BR')}`}
+                              {meta.deadline && `Deadline: ${new Date(meta.deadline).toLocaleDateString('en-US')}`}
                             </span>
                             <span className="font-medium text-coral">
-                              {Math.round(getProgressPercentage(meta.current_value, meta.target_value, meta.goal_type))}% completo
+                              {Math.round(getProgressPercentage(meta.current_value, meta.target_value, meta.goal_type))}% complete
                             </span>
                           </div>
                         </div>
@@ -232,11 +231,11 @@ const Metas = () => {
               )}
             </div>
 
-            {/* Metas Concluídas */}
+            {/* Completed Goals */}
             <div>
               <h2 className="text-xl font-semibold text-petroleum mb-4">{t('completedGoals')} 🎉</h2>
               {metas.filter(meta => meta.completed).length === 0 ? (
-                <p className="text-petroleum-light">Nenhuma meta concluída ainda.</p>
+                <p className="text-petroleum-light">No completed goals yet.</p>
               ) : (
                 <div className="space-y-4">
                   {metas.filter(meta => meta.completed).map((meta) => (
@@ -250,7 +249,7 @@ const Metas = () => {
                               <p className="text-sm text-petroleum-light">{meta.description}</p>
                             </div>
                           </div>
-                          <Badge className="bg-coral text-white">Concluída</Badge>
+                          <Badge className="bg-coral text-white">Completed</Badge>
                         </div>
                       </CardContent>
                     </Card>
@@ -262,12 +261,12 @@ const Metas = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Conquistas */}
+            {/* Achievements */}
             <Card className="bg-gradient-card border-mint/20">
               <CardHeader>
                 <CardTitle className="text-petroleum flex items-center">
                   <Trophy className="h-5 w-5 mr-2 text-coral" />
-                  Conquistas
+                  Achievements
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -285,26 +284,26 @@ const Metas = () => {
               </CardContent>
             </Card>
 
-            {/* Estatísticas */}
+            {/* Statistics */}
             <Card className="bg-gradient-card border-mint/20">
               <CardHeader>
-                <CardTitle className="text-petroleum">Suas Estatísticas</CardTitle>
+                <CardTitle className="text-petroleum">Your Statistics</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-coral">{metas.length}</div>
-                    <div className="text-xs text-petroleum-light">Metas criadas</div>
+                    <div className="text-xs text-petroleum-light">Goals created</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-mint">{metas.filter(m => m.completed).length}</div>
-                    <div className="text-xs text-petroleum-light">Metas concluídas</div>
+                    <div className="text-xs text-petroleum-light">Goals completed</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-lavender">
                       {metas.length > 0 ? Math.round((metas.filter(m => m.completed).length / metas.length) * 100) : 0}%
                     </div>
-                    <div className="text-xs text-petroleum-light">Taxa de sucesso</div>
+                    <div className="text-xs text-petroleum-light">Success rate</div>
                   </div>
                 </div>
               </CardContent>
@@ -312,37 +311,37 @@ const Metas = () => {
           </div>
         </div>
 
-        {/* Modal Nova Meta */}
+        {/* New Goal Modal */}
         {showNewGoal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <Card className="w-full max-w-md">
               <CardHeader>
-                <CardTitle className="text-petroleum">Nova Meta</CardTitle>
+                <CardTitle className="text-petroleum">New Goal</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="title">Título da Meta</Label>
+                  <Label htmlFor="title">Goal Title</Label>
                   <Input
                     id="title"
                     value={newGoal.title}
                     onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
-                    placeholder="Ex: Perder 3kg"
+                    placeholder="E.g.: Lose 3kg"
                   />
                 </div>
                 
                 <div>
-                  <Label htmlFor="description">Descrição</Label>
+                  <Label htmlFor="description">Description</Label>
                   <Textarea
                     id="description"
                     value={newGoal.description}
                     onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
-                    placeholder="Descreva sua meta..."
+                    placeholder="Describe your goal..."
                   />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="target">Valor Alvo</Label>
+                    <Label htmlFor="target">Target Value</Label>
                     <Input
                       id="target"
                       type="number"
@@ -352,7 +351,7 @@ const Metas = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="current">Valor Atual</Label>
+                    <Label htmlFor="current">Current Value</Label>
                     <Input
                       id="current"
                       type="number"
@@ -364,7 +363,7 @@ const Metas = () => {
                 </div>
                 
                 <div>
-                  <Label htmlFor="deadline">Prazo</Label>
+                  <Label htmlFor="deadline">Deadline</Label>
                   <Input
                     id="deadline"
                     type="date"
@@ -379,7 +378,7 @@ const Metas = () => {
                     onClick={() => setShowNewGoal(false)}
                     className="flex-1 border-lavender text-lavender hover:bg-lavender hover:text-white"
                   >
-                    Cancelar
+                    Cancel
                   </Button>
                   <Button
                     onClick={handleCreateGoal}

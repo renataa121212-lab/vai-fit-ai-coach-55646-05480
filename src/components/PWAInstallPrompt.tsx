@@ -78,11 +78,11 @@ const PWAInstallPrompt = () => {
     if (isIOS) {
       return (
         <div className="space-y-3 text-sm">
-          <p className="font-medium">Para instalar no iOS:</p>
+          <p className="font-medium">To install on iOS:</p>
           <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-            <li>Toque no botão <Share className="w-4 h-4 inline mx-1" /> (Compartilhar) na barra inferior</li>
-            <li>Role para baixo e toque em "Adicionar à Tela de Início"</li>
-            <li>Toque em "Adicionar" no canto superior direito</li>
+            <li>Tap the <Share className="w-4 h-4 inline mx-1" /> (Share) button in the bottom bar</li>
+            <li>Scroll down and tap "Add to Home Screen"</li>
+            <li>Tap "Add" in the top right corner</li>
           </ol>
         </div>
       );
@@ -91,11 +91,11 @@ const PWAInstallPrompt = () => {
     if (isAndroid) {
       return (
         <div className="space-y-3 text-sm">
-          <p className="font-medium">Para instalar no Android:</p>
+          <p className="font-medium">To install on Android:</p>
           <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-            <li>Toque no menu <Menu className="w-4 h-4 inline mx-1" /> (3 pontos) no canto superior</li>
-            <li>Selecione "Instalar app" ou "Adicionar à tela inicial"</li>
-            <li>Confirme a instalação</li>
+            <li>Tap the menu <Menu className="w-4 h-4 inline mx-1" /> (3 dots) in the top corner</li>
+            <li>Select "Install app" or "Add to home screen"</li>
+            <li>Confirm installation</li>
           </ol>
         </div>
       );
@@ -103,11 +103,11 @@ const PWAInstallPrompt = () => {
     
     return (
       <div className="space-y-3 text-sm">
-        <p className="font-medium">Para instalar no Desktop:</p>
+        <p className="font-medium">To install on Desktop:</p>
         <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-          <li>Clique no ícone de instalação na barra de endereços</li>
-          <li>Ou vá em Menu → "Instalar VaiFit"</li>
-          <li>Confirme a instalação</li>
+          <li>Click the install icon in the address bar</li>
+          <li>Or go to Menu → "Install VaiFit"</li>
+          <li>Confirm installation</li>
         </ol>
       </div>
     );
@@ -122,10 +122,10 @@ const PWAInstallPrompt = () => {
           <div className="flex items-start justify-between">
             <div className="space-y-1">
               <h3 className="text-xl font-bold text-petroleum">
-                Instale o VaiFit
+                Install VaiFit
               </h3>
               <p className="text-sm text-muted-foreground">
-                Acesse mais rápido e receba notificações
+                Access faster and get notifications
               </p>
             </div>
             <Button
@@ -146,7 +146,7 @@ const PWAInstallPrompt = () => {
                 className="w-full"
                 onClick={() => setShowInstructions(false)}
               >
-                Voltar
+                Back
               </Button>
             </>
           ) : (
@@ -156,19 +156,19 @@ const PWAInstallPrompt = () => {
                   <div className="w-12 h-12 mx-auto bg-mint/20 rounded-full flex items-center justify-center">
                     <Download className="w-6 h-6 text-mint" />
                   </div>
-                  <p className="text-xs text-muted-foreground">Rápido</p>
+                  <p className="text-xs text-muted-foreground">Fast</p>
                 </div>
                 <div className="text-center space-y-1">
                   <div className="w-12 h-12 mx-auto bg-lavender/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl">🔔</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">Notificações</p>
+                  <p className="text-xs text-muted-foreground">Notifications</p>
                 </div>
                 <div className="text-center space-y-1">
                   <div className="w-12 h-12 mx-auto bg-coral/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl">📱</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">Nativo</p>
+                  <p className="text-xs text-muted-foreground">Native</p>
                 </div>
               </div>
 
@@ -179,14 +179,14 @@ const PWAInstallPrompt = () => {
                   size="lg"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Instalar Agora
+                  Install Now
                 </Button>
                 <Button
                   variant="ghost"
                   className="w-full"
                   onClick={() => setShowPrompt(false)}
                 >
-                  Agora não
+                  Not now
                 </Button>
               </div>
             </>

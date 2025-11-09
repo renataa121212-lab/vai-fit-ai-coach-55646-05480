@@ -31,7 +31,7 @@ export const LiviaChat = ({ context, initialMessage, className = '', triggerMess
 
   useEffect(() => {
     if (messages.length === 0) {
-      const greeting = initialMessage || "Oi! Que bom ter você por aqui. Eu sou a Lívia, sua agente pessoal de saúde e bem-estar. Vou ajudar a alcançar as metas, organizar os treinos, acompanhar a evolução e cuidar da alimentação. Vamos começar? 💜";
+      const greeting = initialMessage || "Hi! Great to have you here. I'm Lívia, your personal health and wellness agent. I'll help you achieve your goals, organize your workouts, track your progress, and take care of your nutrition. Let's get started? 💜";
       setMessages([{ role: 'assistant', content: greeting }]);
     }
   }, []);
@@ -80,7 +80,7 @@ export const LiviaChat = ({ context, initialMessage, className = '', triggerMess
         },
         body: JSON.stringify({ 
           messages: [...messages, userMsg],
-          context: context || 'Conversa geral sobre fitness'
+          context: context || 'General conversation about fitness'
         }),
       });
 
@@ -190,7 +190,7 @@ export const LiviaChat = ({ context, initialMessage, className = '', triggerMess
           />
           <div>
             <CardTitle className="text-lg">Lívia</CardTitle>
-            <p className="text-xs text-white/80">Sua especialista fitness</p>
+            <p className="text-xs text-white/80">Your fitness specialist</p>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -274,7 +274,7 @@ export const LiviaChat = ({ context, initialMessage, className = '', triggerMess
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Pergunte à Lívia..."
+                placeholder="Ask Lívia..."
                 disabled={isLoading}
                 className="flex-1"
               />
