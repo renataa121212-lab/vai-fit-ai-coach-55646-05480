@@ -101,9 +101,9 @@ const receitasBase: Receita[] = [
     categoria: 'cafe-da-manha',
     tempoPreparo: 5,
     calorias: 150,
-    ingredientes: ['1 kale leaf', '1/2 green apple', 'Juice of 1 lemon', '200ml coconut water', 'Ginger'],
+    ingredientes: ['1 kale leaf', '1/2 pear', 'Juice of 1 lemon', '200ml coconut water', 'Ginger'],
     modoPreparo: [
-      'Wash kale and apple well',
+      'Wash kale and pear well',
       'Cut into pieces',
       'Blend everything',
       'Add ice if desired',

@@ -23,14 +23,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Configuracoes = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const { language, changeLanguage } = useTranslation();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   
-  // Tema
+  // Theme
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>(() => {
     const saved = localStorage.getItem('theme');
     return (saved as 'light' | 'dark' | 'auto') || 'auto';
@@ -61,19 +72,29 @@ const Configuracoes = () => {
   }, [theme]);
 
   
-  // Configurações de perfil
+  // Profile settings
   const [nome, setNome] = useState(user?.user_metadata?.full_name || '');
-  const [genero, setGenero] = useState('');
-  const [peso, setPeso] = useState('');
+  const [genero, setGenero] = useState(user?.user_metadata?.gender || '');
+  const [peso, setPeso] = useState(user?.user_metadata?.weight || '');
   
-  // Configurações de notificação
-  const [pushNotifications, setPushNotifications] = useState(true);
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  // Notification settings
+  const [pushNotifications, setPushNotifications] = useState(() => {
+    const saved = localStorage.getItem('notifications');
+    return saved ? JSON.parse(saved).push : true;
+  });
+  const [emailNotifications, setEmailNotifications] = useState(() => {
+    const saved = localStorage.getItem('notifications');
+    return saved ? JSON.parse(saved).email : true;
+  });
+  const [soundEnabled, setSoundEnabled] = useState(() => {
+    const saved = localStorage.getItem('notifications');
+    return saved ? JSON.parse(saved).sound : true;
+  });
+  const [quietStart, setQuietStart] = useState('22:00');
+  const [quietEnd, setQuietEnd] = useState('07:00');
 
   const handleSaveProfile = async () => {
     try {
-      // Atualizar perfil no Supabase
       const { error } = await supabase.auth.updateUser({
         data: {
           full_name: nome,
@@ -84,37 +105,64 @@ const Configuracoes = () => {
 
       if (error) throw error;
       
-      toast.success('Perfil atualizado com sucesso!');
+      toast.success('Profile updated successfully!');
     } catch (error) {
-      console.error('Erro ao salvar perfil:', error);
-      toast.error('Erro ao atualizar perfil');
+      console.error('Error saving profile:', error);
+      toast.error('Error updating profile');
     }
   };
 
-  const handleChangePassword = () => {
-    toast.info('Em breve você poderá alterar sua senha diretamente no app');
+  const handleChangePassword = async () => {
+    if (newPassword.length < 6) {
+      toast.error('Password must be at least 6 characters');
+      return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords don't match");
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword
+      });
+
+      if (error) throw error;
+
+      toast.success('Password changed successfully!');
+      setShowPasswordDialog(false);
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error: any) {
+      console.error('Error changing password:', error);
+      toast.error(error.message || 'Error changing password');
+    }
   };
 
   const handleViewDevices = () => {
-    toast.info('Funcionalidade de gerenciamento de dispositivos em desenvolvimento');
+    toast.info('Device management coming soon!');
   };
 
   const handleUpgradePremium = () => {
-    toast.info('Planos premium em breve! Fique ligado 🚀');
+    toast.info('Premium plans coming soon! Stay tuned 🚀');
   };
 
   const handleSaveNotifications = () => {
-    localStorage.setItem('notifications', JSON.stringify({
+    const settings = {
       push: pushNotifications,
       email: emailNotifications,
-      sound: soundEnabled
-    }));
-    toast.success('Preferências de notificação salvas!');
+      sound: soundEnabled,
+      quietStart,
+      quietEnd
+    };
+    localStorage.setItem('notifications', JSON.stringify(settings));
+    toast.success('Notification preferences saved!');
   };
 
   const handleLogout = async () => {
     await signOut();
-    toast.success('Você saiu da sua conta');
+    toast.success('You have been signed out');
     navigate('/auth');
   };
 
@@ -128,54 +176,54 @@ const Configuracoes = () => {
           className="mb-4"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Voltar
+          Back
         </Button>
 
-        <h1 className="text-3xl font-bold text-petroleum mb-6">Configurações</h1>
+        <h1 className="text-3xl font-bold text-petroleum mb-6">Settings</h1>
 
         <Tabs defaultValue="perfil" className="space-y-6">
           <TabsList className="grid grid-cols-2 lg:grid-cols-5 gap-2">
             <TabsTrigger value="perfil">
               <User className="h-4 w-4 mr-2" />
-              Perfil
+              Profile
             </TabsTrigger>
             <TabsTrigger value="notificacoes">
               <Bell className="h-4 w-4 mr-2" />
-              Notificações
+              Notifications
             </TabsTrigger>
             <TabsTrigger value="tema">
               <Palette className="h-4 w-4 mr-2" />
-              Tema
+              Theme
             </TabsTrigger>
             <TabsTrigger value="idioma">
               <Globe className="h-4 w-4 mr-2" />
-              Idioma
+              Language
             </TabsTrigger>
             <TabsTrigger value="assinatura">
               <CreditCard className="h-4 w-4 mr-2" />
-              Assinatura
+              Subscription
             </TabsTrigger>
           </TabsList>
 
-          {/* Perfil */}
+          {/* Profile */}
           <TabsContent value="perfil" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Informações Pessoais</CardTitle>
+                <CardTitle>Personal Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="nome">Nome completo</Label>
+                  <Label htmlFor="nome">Full name</Label>
                   <Input
                     id="nome"
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
-                    placeholder="Seu nome"
+                    placeholder="Your name"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="email">E-mail</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     value={user?.email || ''}
@@ -186,22 +234,22 @@ const Configuracoes = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="genero">Gênero</Label>
+                    <Label htmlFor="genero">Gender</Label>
                     <Select value={genero} onValueChange={setGenero}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="masculino">Masculino</SelectItem>
-                        <SelectItem value="feminino">Feminino</SelectItem>
-                        <SelectItem value="outro">Outro</SelectItem>
-                        <SelectItem value="nao-informar">Prefiro não informar</SelectItem>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="peso">Peso (kg)</Label>
+                    <Label htmlFor="peso">Weight (kg)</Label>
                     <Input
                       id="peso"
                       type="number"
@@ -213,43 +261,47 @@ const Configuracoes = () => {
                 </div>
 
                 <Button onClick={handleSaveProfile} className="w-full bg-mint hover:bg-mint-dark text-white">
-                  Salvar alterações
+                  Save changes
                 </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Segurança</CardTitle>
+                <CardTitle>Security</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Button variant="outline" className="w-full" onClick={handleChangePassword}>
-                  Alterar senha
+                <Button 
+                  variant="outline" 
+                  className="w-full" 
+                  onClick={() => setShowPasswordDialog(true)}
+                >
+                  Change password
                 </Button>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Smartphone className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">Gerenciar dispositivos</span>
+                    <span className="text-sm">Manage devices</span>
                   </div>
                   <Button variant="ghost" size="sm" onClick={handleViewDevices}>
-                    Ver todos
+                    View all
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Notificações */}
+          {/* Notifications */}
           <TabsContent value="notificacoes" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Preferências de Notificação</CardTitle>
+                <CardTitle>Notification Preferences</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Notificações push</Label>
-                    <p className="text-sm text-muted-foreground">Receber alertas no celular</p>
+                    <Label>Push notifications</Label>
+                    <p className="text-sm text-muted-foreground">Receive alerts on your phone</p>
                   </div>
                   <Switch
                     checked={pushNotifications}
@@ -259,8 +311,8 @@ const Configuracoes = () => {
 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Notificações por e-mail</Label>
-                    <p className="text-sm text-muted-foreground">Atualizações na sua caixa de entrada</p>
+                    <Label>Email notifications</Label>
+                    <p className="text-sm text-muted-foreground">Updates in your inbox</p>
                   </div>
                   <Switch
                     checked={emailNotifications}
@@ -270,8 +322,8 @@ const Configuracoes = () => {
 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Sons e vibração</Label>
-                    <p className="text-sm text-muted-foreground">Alertas sonoros</p>
+                    <Label>Sounds and vibration</Label>
+                    <p className="text-sm text-muted-foreground">Sound alerts</p>
                   </div>
                   <Switch
                     checked={soundEnabled}
@@ -280,36 +332,44 @@ const Configuracoes = () => {
                 </div>
 
                   <div className="pt-4 border-t">
-                    <Label>Horário silencioso</Label>
-                    <p className="text-sm text-muted-foreground mb-4">Configure períodos sem notificações</p>
+                    <Label>Quiet hours</Label>
+                    <p className="text-sm text-muted-foreground mb-4">Configure periods without notifications</p>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label className="text-xs">Início</Label>
-                        <Input type="time" defaultValue="22:00" />
+                        <Label className="text-xs">Start</Label>
+                        <Input 
+                          type="time" 
+                          value={quietStart} 
+                          onChange={(e) => setQuietStart(e.target.value)}
+                        />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs">Fim</Label>
-                        <Input type="time" defaultValue="07:00" />
+                        <Label className="text-xs">End</Label>
+                        <Input 
+                          type="time" 
+                          value={quietEnd}
+                          onChange={(e) => setQuietEnd(e.target.value)}
+                        />
                       </div>
                     </div>
                   </div>
 
                   <Button onClick={handleSaveNotifications} className="w-full bg-mint hover:bg-mint-dark text-white mt-4">
-                    Salvar preferências
+                    Save preferences
                   </Button>
                 </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Tema */}
+          {/* Theme */}
           <TabsContent value="tema" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Aparência</CardTitle>
+                <CardTitle>Appearance</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Selecione o tema</Label>
+                  <Label>Select theme</Label>
                   <div className="grid grid-cols-1 gap-3">
                     <button
                       onClick={() => setTheme('light')}
@@ -317,8 +377,8 @@ const Configuracoes = () => {
                         theme === 'light' ? 'border-mint bg-mint/10' : 'border-border hover:border-mint/50'
                       }`}
                     >
-                      <div className="font-medium">Claro</div>
-                      <div className="text-sm text-muted-foreground">Tema claro para o dia</div>
+                      <div className="font-medium">Light</div>
+                      <div className="text-sm text-muted-foreground">Light theme for daytime</div>
                     </button>
                     
                     <button
@@ -327,8 +387,8 @@ const Configuracoes = () => {
                         theme === 'dark' ? 'border-mint bg-mint/10' : 'border-border hover:border-mint/50'
                       }`}
                     >
-                      <div className="font-medium">Escuro</div>
-                      <div className="text-sm text-muted-foreground">Tema escuro para a noite</div>
+                      <div className="font-medium">Dark</div>
+                      <div className="text-sm text-muted-foreground">Dark theme for nighttime</div>
                     </button>
                     
                     <button
@@ -337,8 +397,8 @@ const Configuracoes = () => {
                         theme === 'auto' ? 'border-mint bg-mint/10' : 'border-border hover:border-mint/50'
                       }`}
                     >
-                      <div className="font-medium">Automático</div>
-                      <div className="text-sm text-muted-foreground">Baseado no sistema do dispositivo</div>
+                      <div className="font-medium">Automatic</div>
+                      <div className="text-sm text-muted-foreground">Based on device system</div>
                     </button>
                   </div>
                 </div>
@@ -346,11 +406,11 @@ const Configuracoes = () => {
             </Card>
           </TabsContent>
 
-          {/* Idioma */}
+          {/* Language */}
           <TabsContent value="idioma" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Selecione o idioma</CardTitle>
+                <CardTitle>Select language</CardTitle>
               </CardHeader>
               <CardContent>
                 <Select value={language} onValueChange={(val) => changeLanguage(val as any)}>
@@ -372,29 +432,29 @@ const Configuracoes = () => {
             </Card>
           </TabsContent>
 
-          {/* Assinatura */}
+          {/* Subscription */}
           <TabsContent value="assinatura" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Plano Atual</CardTitle>
+                <CardTitle>Current Plan</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="p-4 bg-gradient-hero rounded-lg text-white">
-                  <div className="text-sm opacity-90">Plano Gratuito</div>
-                  <div className="text-2xl font-bold">R$ 0,00/mês</div>
+                  <div className="text-sm opacity-90">Free Plan</div>
+                  <div className="text-2xl font-bold">$0.00/month</div>
                 </div>
                 <Button className="w-full bg-mint hover:bg-mint-dark text-white" onClick={handleUpgradePremium}>
-                  Fazer upgrade para Premium
+                  Upgrade to Premium
                 </Button>
                 <p className="text-sm text-muted-foreground text-center">
-                  Desbloqueie recursos exclusivos e tenha acesso completo ao VaiFit
+                  Unlock exclusive features and get full access to VaiFit
                 </p>
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
 
-        {/* Sair */}
+        {/* Sign Out */}
         <Card className="mt-6 border-destructive/20">
           <CardContent className="pt-6">
             <Button
@@ -403,29 +463,71 @@ const Configuracoes = () => {
               className="w-full"
             >
               <LogOut className="h-4 w-4 mr-2" />
-              Sair da conta
+              Sign out
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      {/* Diálogo de confirmação de logout */}
+      {/* Logout confirmation dialog */}
       <AlertDialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Tem certeza que deseja sair?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure you want to sign out?</AlertDialogTitle>
             <AlertDialogDescription>
-              Você será desconectado da sua conta e precisará fazer login novamente para acessar o VaiFit.
+              You will be signed out of your account and will need to sign in again to access VaiFit.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleLogout} className="bg-destructive hover:bg-destructive/90">
-              Sim, sair
+              Yes, sign out
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Password change dialog */}
+      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Change Password</DialogTitle>
+            <DialogDescription>
+              Enter your new password below. It must be at least 6 characters long.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">New Password</Label>
+              <Input
+                id="newPassword"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowPasswordDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleChangePassword} className="bg-mint hover:bg-mint-dark text-white">
+              Change Password
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

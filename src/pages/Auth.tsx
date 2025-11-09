@@ -51,8 +51,8 @@ const Auth = () => {
 
     if (error) {
       toast({
-        title: 'Login cancelado',
-        description: decodeURIComponent(errorDescription || 'Autorização não concedida.'),
+        title: 'Login cancelled',
+        description: decodeURIComponent(errorDescription || 'Authorization not granted.'),
         variant: 'destructive',
       });
       history.replaceState(null, '', window.location.pathname);
@@ -77,24 +77,24 @@ const Auth = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/auth`,
+          redirectTo: `${window.location.origin}/dashboard`,
         },
       });
       
       if (error) {
         const msg = error.message?.toLowerCase() || '';
         toast({
-          title: 'Erro ao fazer login social',
+          title: 'Social login error',
           description: msg.includes('provider is not enabled')
-            ? 'Este provedor não está habilitado no backend. Ative Google e tente novamente.'
+            ? 'This provider is not enabled in the backend. Enable Google and try again.'
             : error.message,
           variant: 'destructive',
         });
       }
     } catch (error) {
       toast({
-        title: 'Erro ao fazer login',
-        description: 'Ocorreu um erro. Tente novamente.',
+        title: 'Login error',
+        description: 'An error occurred. Please try again.',
         variant: 'destructive',
       });
     } finally {
@@ -113,14 +113,14 @@ const Auth = () => {
             <CardTitle className="text-3xl font-bold text-petroleum">VaiFit</CardTitle>
           </div>
           <CardDescription>
-            Sua jornada fitness começa aqui
+            Your fitness journey starts here
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Entrar</TabsTrigger>
-              <TabsTrigger value="signup">Cadastrar</TabsTrigger>
+              <TabsTrigger value="signin">Sign In</TabsTrigger>
+              <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin">
@@ -140,7 +140,7 @@ const Auth = () => {
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                       </svg>
-                      Continuar com Google
+                      Continue with Google
                     </Button>
                     
                   </div>
@@ -151,7 +151,7 @@ const Auth = () => {
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
                       <span className="bg-background px-2 text-muted-foreground">
-                        Ou continue com email
+                        Or continue with email
                       </span>
                     </div>
                   </div>
@@ -164,7 +164,7 @@ const Auth = () => {
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="seu@email.com"
+                            placeholder="your@email.com"
                             {...field}
                             disabled={isLoading}
                           />
@@ -179,7 +179,7 @@ const Auth = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Senha</FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
@@ -194,7 +194,7 @@ const Auth = () => {
                   />
 
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Entrando...' : 'Entrar'}
+                    {isLoading ? 'Signing in...' : 'Sign In'}
                   </Button>
                 </form>
               </Form>
@@ -217,7 +217,7 @@ const Auth = () => {
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                       </svg>
-                      Continuar com Google
+                      Continue with Google
                     </Button>
                     
                   </div>
@@ -228,7 +228,7 @@ const Auth = () => {
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
                       <span className="bg-background px-2 text-muted-foreground">
-                        Ou cadastre-se com email
+                        Or sign up with email
                       </span>
                     </div>
                   </div>
@@ -237,11 +237,11 @@ const Auth = () => {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nome Completo</FormLabel>
+                        <FormLabel>Full Name</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
-                            placeholder="João Silva"
+                            placeholder="John Doe"
                             {...field}
                             disabled={isLoading}
                           />
@@ -260,7 +260,7 @@ const Auth = () => {
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="seu@email.com"
+                            placeholder="your@email.com"
                             {...field}
                             disabled={isLoading}
                           />
@@ -275,7 +275,7 @@ const Auth = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Senha</FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
@@ -294,7 +294,7 @@ const Auth = () => {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Confirmar Senha</FormLabel>
+                        <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
@@ -309,7 +309,7 @@ const Auth = () => {
                   />
 
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Criando conta...' : 'Criar Conta'}
+                    {isLoading ? 'Creating account...' : 'Create Account'}
                   </Button>
                 </form>
               </Form>

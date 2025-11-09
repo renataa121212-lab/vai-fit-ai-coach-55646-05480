@@ -57,15 +57,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (error) throw error;
 
       toast({
-        title: "Conta criada!",
-        description: "Você pode fazer login agora.",
+        title: "Account created!",
+        description: "You can now sign in.",
       });
 
       return { error: null };
     } catch (error) {
       const err = error as Error;
       toast({
-        title: "Erro ao criar conta",
+        title: "Error creating account",
         description: err.message,
         variant: "destructive",
       });
@@ -83,15 +83,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (error) throw error;
 
       toast({
-        title: "Login realizado!",
-        description: "Bem-vindo de volta.",
+        title: "Signed in!",
+        description: "Welcome back.",
       });
 
       return { error: null };
     } catch (error) {
       const err = error as Error;
       toast({
-        title: "Erro ao fazer login",
+        title: "Sign in error",
         description: err.message,
         variant: "destructive",
       });
@@ -105,13 +105,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (error) throw error;
       
       toast({
-        title: "Logout realizado",
-        description: "Até logo!",
+        title: "Signed out",
+        description: "See you soon!",
       });
     } catch (error) {
       const err = error as Error;
       toast({
-        title: "Erro ao fazer logout",
+        title: "Sign out error",
         description: err.message,
         variant: "destructive",
       });
