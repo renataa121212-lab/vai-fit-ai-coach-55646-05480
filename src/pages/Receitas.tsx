@@ -21,50 +21,50 @@ import vontadeDoce from '@/assets/vontade-doce.jpg';
 import focoFimDeSemana from '@/assets/foco-fim-de-semana-new.jpg';
 
 const categoriasLabels: Record<CategoriaRefeicao, string> = {
-  'cafe-da-manha': 'Café da Manhã',
-  'almoco': 'Almoço',
-  'jantar': 'Jantar',
-  'lanche': 'Lanche',
-  'salada': 'Salada',
-  'sopa': 'Sopa',
-  'doce-saudavel': 'Doces Saudáveis'
+  'cafe-da-manha': 'Breakfast',
+  'almoco': 'Lunch',
+  'jantar': 'Dinner',
+  'lanche': 'Snack',
+  'salada': 'Salad',
+  'sopa': 'Soup',
+  'doce-saudavel': 'Healthy Sweets'
 };
 
 const metasLabels: Record<MetaNutricional, string> = {
-  'poucas-calorias': 'Poucas calorias',
-  'rica-em-proteinas': 'Rica em proteínas',
+  'poucas-calorias': 'Low calorie',
+  'rica-em-proteinas': 'High protein',
   'low-carb': 'Low carb',
-  'sem-acucar': 'Sem açúcar',
-  'sem-gluten': 'Sem glúten',
-  'sem-lactose': 'Sem lactose',
-  'vegetariana': 'Vegetariana',
-  'vegana': 'Vegana',
-  'pescetariana': 'Pescetariana'
+  'sem-acucar': 'Sugar-free',
+  'sem-gluten': 'Gluten-free',
+  'sem-lactose': 'Lactose-free',
+  'vegetariana': 'Vegetarian',
+  'vegana': 'Vegan',
+  'pescetariana': 'Pescatarian'
 };
 
 const metodosLabels: Record<MetodoPreparo, string> = {
-  'rapido': 'Rápido',
-  'poucos-ingredientes': 'Poucos ingredientes',
-  'facil': 'Fácil'
+  'rapido': 'Quick',
+  'poucos-ingredientes': 'Few ingredients',
+  'facil': 'Easy'
 };
 
 const ingredientesLabels: Record<IngredienteDisponivel, string> = {
-  'peixe': 'Peixe',
-  'frango': 'Frango',
-  'porco': 'Porco',
-  'gado': 'Gado',
+  'peixe': 'Fish',
+  'frango': 'Chicken',
+  'porco': 'Pork',
+  'gado': 'Beef',
   'bacon': 'Bacon',
-  'ovos': 'Ovos',
-  'laticinios': 'Laticínios',
-  'nozes': 'Nozes',
-  'espinafre': 'Espinafre',
-  'abacate': 'Abacate',
-  'batata': 'Batata',
-  'arroz': 'Arroz',
-  'massa': 'Massa',
-  'pao': 'Pão',
-  'salmao': 'Salmão',
-  'frutos-do-mar': 'Frutos do mar'
+  'ovos': 'Eggs',
+  'laticinios': 'Dairy',
+  'nozes': 'Nuts',
+  'espinafre': 'Spinach',
+  'abacate': 'Avocado',
+  'batata': 'Potato',
+  'arroz': 'Rice',
+  'massa': 'Pasta',
+  'pao': 'Bread',
+  'salmao': 'Salmon',
+  'frutos-do-mar': 'Seafood'
 };
 
 export default function Receitas() {
@@ -93,42 +93,30 @@ export default function Receitas() {
   };
 
   const receitasFiltradas = receitas.filter(receita => {
-    // Filtro de busca
     if (busca && !receita.nome.toLowerCase().includes(busca.toLowerCase())) {
       return false;
     }
-
-    // Filtro de categoria
     if (categoriaAtiva !== 'todas' && receita.categoria !== categoriaAtiva) {
       return false;
     }
-
-    // Filtro de metas nutricionais
     if (metasSelecionadas.length > 0) {
       if (!metasSelecionadas.some(meta => receita.metasNutricionais.includes(meta))) {
         return false;
       }
     }
-
-    // Filtro de métodos de preparo
     if (metodosSelecionados.length > 0) {
       if (!metodosSelecionados.some(metodo => receita.metodosPreparo.includes(metodo))) {
         return false;
       }
     }
-
-    // Filtro de ingredientes
     if (ingredientesSelecionados.length > 0) {
       if (!ingredientesSelecionados.some(ing => receita.ingredientesPrincipais.includes(ing))) {
         return false;
       }
     }
-
-    // Filtro de calorias
     if (receita.calorias > caloriaMax) {
       return false;
     }
-
     return true;
   });
 
@@ -147,7 +135,6 @@ export default function Receitas() {
       
       <main className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-7xl mx-auto space-y-6">
-          {/* Header */}
           <div className="space-y-2">
             <h1 className="text-4xl font-bold text-petroleum">{t('recipesTitle')}</h1>
             <p className="text-muted-foreground">
@@ -155,67 +142,65 @@ export default function Receitas() {
             </p>
           </div>
 
-          {/* Cards da Lívia */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card 
               className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Me conte mais sobre as melhores bebidas para melhorar a digestão. Quais você recomenda?')}
+              onClick={() => setLiviaTrigger('Tell me more about the best drinks to improve digestion. Which ones do you recommend?')}
             >
               <div className="relative h-40 overflow-hidden">
                 <img 
                   src={bebidasDigestao} 
-                  alt="Bebidas para digestão" 
+                  alt="Drinks for digestion" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
-                    As melhores bebidas para melhorar a digestão
+                    Best drinks to improve digestion
                   </h3>
-                  <p className="text-xs text-white/80">Dica da Lívia</p>
+                  <p className="text-xs text-white/80">Lívia's tip</p>
                 </div>
               </div>
             </Card>
 
             <Card 
               className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Quando é o melhor momento para treinar durante o jejum intermitente? Como otimizar meus resultados?')}
+              onClick={() => setLiviaTrigger('When is the best time to workout during intermittent fasting? How can I optimize my results?')}
             >
               <div className="relative h-40 overflow-hidden">
                 <img 
                   src={treinoJejum} 
-                  alt="Treino em jejum" 
+                  alt="Fasting workout" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
-                    Quando treinar durante o jejum?
+                    When to workout during fasting?
                   </h3>
-                  <p className="text-xs text-white/80">Otimize seus resultados</p>
+                  <p className="text-xs text-white/80">Optimize your results</p>
                 </div>
               </div>
             </Card>
 
             <Card 
               className="overflow-hidden cursor-pointer hover:shadow-lg transition-all group"
-              onClick={() => setLiviaTrigger('Como posso lidar com a vontade de comer doce à noite? Você tem estratégias práticas para isso?')}
+              onClick={() => setLiviaTrigger('How can I deal with sweet cravings at night? Do you have practical strategies for this?')}
             >
               <div className="relative h-40 overflow-hidden">
                 <img 
                   src={vontadeDoce} 
-                  alt="Vontade de doce" 
+                  alt="Sweet cravings" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
                 <div className="absolute bottom-3 left-3 right-3">
                   <h3 className="font-semibold text-white text-sm mb-1">
-                    Como lidar com a vontade de doce à noite?
+                    How to deal with sweet cravings at night?
                   </h3>
-                  <p className="text-xs text-white/80">Estratégias práticas</p>
+                  <p className="text-xs text-white/80">Practical strategies</p>
                 </div>
               </div>
             </Card>
           </div>
 
-          {/* Tabs Principais: Todas receitas e Favoritos */}
           <Tabs defaultValue="todas" className="space-y-6">
             <TabsList className="grid w-full max-w-md grid-cols-2">
               <TabsTrigger value="todas">{t('allRecipes')}</TabsTrigger>
@@ -229,7 +214,6 @@ export default function Receitas() {
             </TabsList>
 
             <TabsContent value="todas" className="space-y-6">
-              {/* Busca e Filtros */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -255,13 +239,12 @@ export default function Receitas() {
                   </SheetTrigger>
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
-                  <SheetTitle>Filtros</SheetTitle>
+                  <SheetTitle>Filters</SheetTitle>
                 </SheetHeader>
 
                 <div className="mt-6 space-y-6">
-                  {/* Calorias */}
                   <div className="space-y-2">
-                    <Label>Calorias máximas: {caloriaMax}+</Label>
+                    <Label>Max calories: {caloriaMax}+</Label>
                     <Slider
                       value={[caloriaMax]}
                       onValueChange={([value]) => setCaloriaMax(value)}
@@ -272,10 +255,8 @@ export default function Receitas() {
                     />
                   </div>
 
-
-                  {/* Metas Nutricionais */}
                   <div className="space-y-3">
-                    <Label className="text-base font-semibold">Meta nutricional</Label>
+                    <Label className="text-base font-semibold">Nutritional goal</Label>
                     {(Object.keys(metasLabels) as MetaNutricional[]).map((meta) => (
                       <div key={meta} className="flex items-center space-x-2">
                         <Checkbox
@@ -296,9 +277,8 @@ export default function Receitas() {
                     ))}
                   </div>
 
-                  {/* Método de Preparo */}
                   <div className="space-y-3">
-                    <Label className="text-base font-semibold">Método de preparo</Label>
+                    <Label className="text-base font-semibold">Cooking method</Label>
                     {(Object.keys(metodosLabels) as MetodoPreparo[]).map((metodo) => (
                       <div key={metodo} className="flex items-center space-x-2">
                         <Checkbox
@@ -319,9 +299,8 @@ export default function Receitas() {
                     ))}
                   </div>
 
-                  {/* Ingredientes Disponíveis */}
                   <div className="space-y-3">
-                    <Label className="text-base font-semibold">Ingredientes disponíveis</Label>
+                    <Label className="text-base font-semibold">Available ingredients</Label>
                     <div className="grid grid-cols-2 gap-2">
                       {(Object.keys(ingredientesLabels) as IngredienteDisponivel[]).map((ing) => (
                         <div key={ing} className="flex items-center space-x-2">
@@ -347,11 +326,11 @@ export default function Receitas() {
                   <div className="flex gap-2">
                     <SheetTrigger asChild>
                       <Button className="flex-1 bg-mint hover:bg-mint-dark text-white">
-                        Mostrar receitas
+                        Show recipes
                       </Button>
                     </SheetTrigger>
                     <Button onClick={limparFiltros} variant="outline" className="flex-1">
-                      Limpar
+                      Clear
                     </Button>
                   </div>
                 </div>
@@ -362,14 +341,13 @@ export default function Receitas() {
               className="gap-2 bg-mint hover:bg-mint-dark text-white"
               onClick={() => navigate('/receitas-ingredientes')}
             >
-              🏠 Receita com o que tenho em casa
+              🏠 Recipe with what I have at home
             </Button>
           </div>
 
-          {/* Tabs de Categorias */}
           <Tabs value={categoriaAtiva} onValueChange={(value) => setCategoriaAtiva(value as CategoriaRefeicao | 'todas')}>
             <TabsList className="w-full justify-start overflow-x-auto">
-              <TabsTrigger value="todas">Todas</TabsTrigger>
+              <TabsTrigger value="todas">All</TabsTrigger>
               {(Object.keys(categoriasLabels) as CategoriaRefeicao[]).map((cat) => (
                 <TabsTrigger key={cat} value={cat}>
                   {categoriasLabels[cat]}
@@ -382,10 +360,10 @@ export default function Receitas() {
                 <Card>
                   <CardContent className="flex flex-col items-center justify-center py-12">
                     <p className="text-muted-foreground text-center">
-                      Nenhuma receita encontrada com os filtros selecionados
+                      No recipes found with the selected filters
                     </p>
                     <Button onClick={limparFiltros} variant="link" className="mt-2">
-                      Limpar filtros
+                      Clear filters
                     </Button>
                   </CardContent>
                 </Card>
@@ -452,17 +430,16 @@ export default function Receitas() {
               </Tabs>
             </TabsContent>
 
-            {/* Tab de Favoritos */}
             <TabsContent value="favoritos" className="space-y-6">
               {favoritos.size === 0 ? (
                 <Card>
                   <CardContent className="flex flex-col items-center justify-center py-12">
                     <Heart className="h-16 w-16 text-muted-foreground/20 mb-4" />
                     <p className="text-muted-foreground text-center mb-2">
-                      Você ainda não tem receitas favoritas
+                      You don't have any favorite recipes yet
                     </p>
                     <p className="text-sm text-muted-foreground text-center">
-                      Clique no ícone de coração nas receitas para salvá-las aqui
+                      Click the heart icon on recipes to save them here
                     </p>
                   </CardContent>
                 </Card>
@@ -531,7 +508,7 @@ export default function Receitas() {
       </main>
 
       <LiviaChat 
-        context="Receitas e alimentação saudável" 
+        context="Recipes and healthy eating" 
         triggerMessage={liviaTrigger}
         onMessageSent={() => setLiviaTrigger('')}
       />

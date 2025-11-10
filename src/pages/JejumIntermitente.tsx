@@ -29,27 +29,25 @@ const JejumIntermitente = () => {
     'custom': customJejum
   };
 
-  // Request notification permission
   const requestNotificationPermission = async () => {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         setNotificationsEnabled(true);
         toast({
-          title: "Notificações ativadas!",
-          description: "Você receberá alertas sobre seu jejum.",
+          title: "Notifications activated!",
+          description: "You'll receive alerts about your fast.",
         });
       } else {
         toast({
-          title: "Notificações bloqueadas",
-          description: "Ative nas configurações do navegador.",
+          title: "Notifications blocked",
+          description: "Enable them in your browser settings.",
           variant: "destructive",
         });
       }
     }
   };
 
-  // Send notification
   const sendNotification = (title: string, body: string) => {
     if (notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
       new Notification(title, {
@@ -60,7 +58,6 @@ const JejumIntermitente = () => {
     }
   };
 
-  // Persist timer in localStorage
   useEffect(() => {
     const savedState = localStorage.getItem('jejum-state');
     if (savedState) {
@@ -78,7 +75,6 @@ const JejumIntermitente = () => {
     }
   }, []);
 
-  // Save state to localStorage
   useEffect(() => {
     if (isActive && startTime) {
       const state = {
@@ -92,7 +88,6 @@ const JejumIntermitente = () => {
     }
   }, [isActive, startTime, selectedProtocol, currentPhase]);
 
-  // Background timer
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
@@ -101,13 +96,12 @@ const JejumIntermitente = () => {
         setTimeRemaining(time => {
           const newTime = time - 1;
           
-          // Send notification at milestones
           if (newTime === 60 * 60) {
-            sendNotification('Jejum Intermitente', '1 hora restante!');
+            sendNotification('Intermittent Fasting', '1 hour remaining!');
           } else if (newTime === 30 * 60) {
-            sendNotification('Jejum Intermitente', '30 minutos restantes!');
+            sendNotification('Intermittent Fasting', '30 minutes remaining!');
           } else if (newTime === 0) {
-            sendNotification('Jejum Intermitente', currentPhase === 'jejum' ? 'Jejum completo! Pode se alimentar.' : 'Janela de alimentação encerrada!');
+            sendNotification('Intermittent Fasting', currentPhase === 'jejum' ? 'Fast complete! You can eat now.' : 'Eating window closed!');
             setIsActive(false);
           }
           
@@ -134,7 +128,7 @@ const JejumIntermitente = () => {
   const handleStart = () => {
     setIsActive(true);
     setStartTime(Date.now());
-    sendNotification('Jejum Iniciado', `Seu jejum de ${selectedProtocol} começou!`);
+    sendNotification('Fast Started', `Your ${selectedProtocol} fast has begun!`);
   };
 
   const handlePause = () => {
@@ -171,31 +165,31 @@ const JejumIntermitente = () => {
       setTimeRemaining(customJejum[currentPhase] * 60 * 60);
       setShowCustomDialog(false);
       toast({
-        title: "Jejum personalizado criado!",
-        description: `${customJejum.jejum}h jejum / ${customJejum.alimentacao}h alimentação`,
+        title: "Custom fast created!",
+        description: `${customJejum.jejum}h fasting / ${customJejum.alimentacao}h eating`,
       });
     }
   };
 
   const benefits = [
     {
-      title: "Queima de Gordura",
-      description: "Acelera o metabolismo e promove a lipólise",
+      title: "Fat Burning",
+      description: "Accelerates metabolism and promotes lipolysis",
       icon: "🔥"
     },
     {
-      title: "Autophagia",
-      description: "Limpeza celular e renovação das células",
+      title: "Autophagy",
+      description: "Cellular cleansing and cell renewal",
       icon: "🔄"
     },
     {
-      title: "Clareza Mental",
-      description: "Melhora o foco e a concentração",
+      title: "Mental Clarity",
+      description: "Improves focus and concentration",
       icon: "🧠"
     },
     {
-      title: "Controle Glicêmico",
-      description: "Estabiliza os níveis de açúcar no sangue",
+      title: "Glycemic Control",
+      description: "Stabilizes blood sugar levels",
       icon: "📊"
     }
   ];
@@ -206,8 +200,8 @@ const JejumIntermitente = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-petroleum">Jejum Intermitente</h1>
-            <p className="text-petroleum-light">Transforme sua saúde através do jejum</p>
+            <h1 className="text-3xl font-bold text-petroleum">Intermittent Fasting</h1>
+            <p className="text-petroleum-light">Transform your health through fasting</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -226,14 +220,14 @@ const JejumIntermitente = () => {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Jejum Personalizado</DialogTitle>
+                  <DialogTitle>Custom Fast</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                   <p className="text-sm text-petroleum-light">
-                    Defina quantas horas você deseja jejuar. A janela de alimentação será calculada automaticamente.
+                    Define how many hours you want to fast. The eating window will be calculated automatically.
                   </p>
                   <div>
-                    <Label htmlFor="jejum-hours">Quantas horas de jejum?</Label>
+                    <Label htmlFor="jejum-hours">How many hours of fasting?</Label>
                     <Input
                       id="jejum-hours"
                       type="number"
@@ -247,11 +241,11 @@ const JejumIntermitente = () => {
                       }}
                     />
                     <p className="text-xs text-petroleum-light mt-1">
-                      Janela de alimentação: {customJejum.alimentacao}h
+                      Eating window: {customJejum.alimentacao}h
                     </p>
                   </div>
                   <Button onClick={handleCustomJejum} className="w-full bg-mint hover:bg-mint-dark text-white">
-                    Salvar Protocolo
+                    Save Protocol
                   </Button>
                 </div>
               </DialogContent>
@@ -264,7 +258,7 @@ const JejumIntermitente = () => {
             <Card className="bg-gradient-card border-mint/20">
               <CardHeader>
                 <CardTitle className="text-petroleum text-center">
-                  Protocolo {selectedProtocol === 'custom' ? `${customJejum.jejum}:${customJejum.alimentacao}` : selectedProtocol} - {currentPhase === 'jejum' ? 'Jejum' : 'Alimentação'}
+                  Protocol {selectedProtocol === 'custom' ? `${customJejum.jejum}:${customJejum.alimentacao}` : selectedProtocol} - {currentPhase === 'jejum' ? 'Fasting' : 'Eating'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-center space-y-6">
@@ -274,11 +268,11 @@ const JejumIntermitente = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="16:8">16:8 (Iniciante)</SelectItem>
-                      <SelectItem value="18:6">18:6 (Intermediário)</SelectItem>
-                      <SelectItem value="20:4">20:4 (Avançado)</SelectItem>
+                      <SelectItem value="16:8">16:8 (Beginner)</SelectItem>
+                      <SelectItem value="18:6">18:6 (Intermediate)</SelectItem>
+                      <SelectItem value="20:4">20:4 (Advanced)</SelectItem>
                       <SelectItem value="24:0">24:0 (Expert)</SelectItem>
-                      <SelectItem value="custom">Personalizado</SelectItem>
+                      <SelectItem value="custom">Custom</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -290,7 +284,7 @@ const JejumIntermitente = () => {
                         {formatTime(timeRemaining)}
                       </div>
                       <div className="text-sm text-petroleum-light">
-                        {currentPhase === 'jejum' ? 'Jejuando' : 'Janela de alimentação'}
+                        {currentPhase === 'jejum' ? 'Fasting' : 'Eating window'}
                       </div>
                     </div>
                   </div>
@@ -313,7 +307,7 @@ const JejumIntermitente = () => {
                 <div className="space-y-2">
                   <Progress value={getProgress()} className="w-full" />
                   <p className="text-xs text-petroleum-light">
-                    {Math.round(getProgress())}% completo
+                    {Math.round(getProgress())}% complete
                   </p>
                 </div>
 
@@ -324,7 +318,7 @@ const JejumIntermitente = () => {
                       className="bg-mint hover:bg-mint-dark text-white px-8"
                     >
                       <Play className="h-4 w-4 mr-2" />
-                      {currentPhase === 'jejum' ? 'Começar Jejum' : 'Iniciar Alimentação'}
+                      {currentPhase === 'jejum' ? 'Start Fast' : 'Start Eating'}
                     </Button>
                   ) : (
                     <Button
@@ -333,7 +327,7 @@ const JejumIntermitente = () => {
                       className="border-coral text-coral hover:bg-coral hover:text-white px-8"
                     >
                       <Pause className="h-4 w-4 mr-2" />
-                      Pausar
+                      Pause
                     </Button>
                   )}
                   <Button
@@ -357,7 +351,7 @@ const JejumIntermitente = () => {
                   variant="outline"
                   className="w-full border-petroleum text-petroleum hover:bg-petroleum hover:text-white"
                 >
-                  Alternar para {currentPhase === 'jejum' ? 'Janela de Alimentação' : 'Jejum'}
+                  Switch to {currentPhase === 'jejum' ? 'Eating Window' : 'Fasting'}
                 </Button>
               </CardContent>
             </Card>
@@ -368,7 +362,7 @@ const JejumIntermitente = () => {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <TrendingUp className="h-5 w-5 mr-2" />
-                  Benefícios do Jejum
+                  Fasting Benefits
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -386,15 +380,15 @@ const JejumIntermitente = () => {
 
             <Card className="bg-gradient-card border-mint/20">
               <CardHeader>
-                <CardTitle className="text-petroleum">💡 Dicas</CardTitle>
+                <CardTitle className="text-petroleum">💡 Tips</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 text-sm text-petroleum-light">
-                  <p>• Beba bastante água durante o jejum</p>
-                  <p>• Café e chá sem açúcar são permitidos</p>
-                  <p>• Comece devagar e aumente gradualmente</p>
-                  <p>• Ouça seu corpo e ajuste conforme necessário</p>
-                  <p>• Consulte um médico antes de iniciar</p>
+                  <p>• Drink plenty of water during the fast</p>
+                  <p>• Coffee and tea without sugar are allowed</p>
+                  <p>• Start slowly and increase gradually</p>
+                  <p>• Listen to your body and adjust as needed</p>
+                  <p>• Consult a doctor before starting</p>
                 </div>
               </CardContent>
             </Card>
